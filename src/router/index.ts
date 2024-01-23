@@ -14,8 +14,8 @@ const router = createRouter({
           component: ()=>import('../views/front/home.vue')
         },
         {
-          //首頁
-          path: 'product',
+          //詳細商品頁
+          path: 'product-list/product/:id',
           component: () => import('../views/front/product.vue')
         },
 

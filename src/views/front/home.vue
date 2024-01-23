@@ -15,26 +15,26 @@
                       @submit="onSubmit($event)"
                       class="flex flex-col sm:flex-row items-end w-full">
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
-                                <label>關鍵字</label>
-                                <Field 
-                                id="keyWord" 
-                                v-slot="{ field, value, errorMessage }" 
-                                name="keyWord">
-                                    <INPUT 
-                                        v-bind="field"
-                                        />
-                                </Field>
+                        <label>關鍵字</label>
+                        <Field 
+                        id="keyWord" 
+                        v-slot="{ field, value, errorMessage }" 
+                        name="keyWord">
+                            <INPUT 
+                                v-bind="field"
+                                />
+                        </Field>
                     </div>
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
-                                    <label>地區</label>
-                                    <Field 
-                                    id="keyWord" 
-                                    v-slot="{ field, value, errorMessage }" 
-                                    name="keyWord">
-                                        <INPUT 
-                                            v-bind="field"
-                                            />
-                                    </Field>
+                        <label>地區</label>
+                        <Field 
+                        id="keyWord" 
+                        v-slot="{ field, value, errorMessage }" 
+                        name="keyWord">
+                            <INPUT 
+                                v-bind="field"
+                                />
+                        </Field>
                     </div>
                     <Button :type="'button'" class=" whitespace-nowrap " >搜尋餐廳</Button>
                 </Form>
@@ -44,15 +44,34 @@
         <!-- 熱門租屋 padding-6-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">熱門出租</div>
-            <div class="flex flex-col md:flex-row">
-            <div class="w-full md:w-1/2 flex min-h-[150px] md:flex-col">
-            <HOTSTORE class=" flex-auto m-2" v-if="hotProducts[0]" :sortHotStore="hotProducts[0]"></HOTSTORE>
-           </div>
-           <div class="w-full md:w-1/2  grid grid-cols-1  md:grid-cols-2">
-            <template v-for="(item, index) in hotProducts" :key="item.id">
-            <HOTSTORE v-if="index >= 1 && index <= 4" class=" min-h-[150px] m-2" :sortHotStore="item"></HOTSTORE>
-            </template>
-           </div>
+            <div class=" grid grid-cols-1 md:grid-cols-2">
+                <div class="card1 ">
+                    <router-link 
+                    v-if="hotProducts[0]"
+                    :to="`product-list/product/${hotProducts[0].id}`"
+                    >
+                    <HOTSTORE class=" flex-auto m-2 min-h-[150px] md:min-h-[318px]"  :sortHotStore="hotProducts[0]"></HOTSTORE>
+                    </router-link>
+                </div>
+                <div class="card2 grid grid-cols-1 md:grid-cols-2"> 
+                   <template 
+                    v-for="(item, index) in hotProducts" 
+                    :key="item.id"
+                    >
+                    <template
+                     v-if="index >= 1 && index <= 4">
+                    
+                    <router-link 
+                    :to="`product-list/product/${item.id}`"
+                    class=""
+                    >
+                    <HOTSTORE  
+                    class="min-h-[150px] m-2"
+                      :sortHotStore="item"></HOTSTORE>
+                    </router-link >
+                    </template>
+                </template>
+                </div>
             </div>
         </div> 
         <!-- 最新租屋-->  

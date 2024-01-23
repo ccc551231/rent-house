@@ -31,7 +31,7 @@
             @swiper="onSwiper"
             @slideChange="onSlideChange"
         >
-            <swiper-slide v-for="(item) in recommendProduct.imagesUrl" :key="item.id">
+            <swiper-slide v-for="(item) in detailProduct.imagesUrl" :key="item.id">
                 <img 
                 class="w-full h-[180px] object-cover rounded-[0.5rem]" 
                 :src="item" 
@@ -60,15 +60,15 @@
                     基本資料
                 </div>
                 <div class="flex justify-between">
-                    <h3>近捷運古亭站全新裝潢溫馨套房(免仲介費)</h3>
+                    <h3>{{ detailProduct.title }}</h3>
                     <div class="border border-gray-500 h-[36px] w-[36px] cursor-pointer rounded-full  flex items-center justify-center">
                         <i class="bi bi-bookmark "></i>
                     </div>
                 </div>
-                <div>房屋性質:公寓</div>
-                <div>租金:20000/月</div>
-                <div>特性:信義安和六張犁台北醫學大學獨立陽台</div>
-                <div>詳細資料:附近有便利商店、傳統市場、百貨公司、公園綠地、學校、醫療機構、夜市。</div>
+                <div>房屋性質:{{ detailProduct.unit }}</div>
+                <div>租金:{{ detailProduct.price }}</div>
+                <div>特性:{{ detailProduct.content }}</div>
+                <div>詳細資料:{{ detailProduct.description }}</div>
             </div>
             <div class="shadow-md rounded-md p-4 m-4 bg-white">
                  <div class="text-primary-500 font-bold text-xl mb-2">
@@ -78,17 +78,17 @@
                 <div>
                     <i class="bi bi-calendar-event mr-2"></i>租住說明
                     <br>
-                    {{ recommendProduct.tagTIME }}
+                    {{ detailProduct.tagTIME }}
                 </div>
                 <div>
                     <i class="bi bi-info-circle mr-2"></i>房屋守則
                     <br>
-                    {{ recommendProduct.tagRULE }}
+                    {{ detailProduct.tagRULE }}
                 </div>
                 <div>
                     <i class="bi bi-info-circle mr-2"></i>提供設備
                     <br>
-                    {{ recommendProduct.tagEQ }}
+                    {{ detailProduct.tagEQ }}
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 src="https://images.591.com.tw/index/medium/no-photo-new.png"/>
                 <div>屋主: 張小姐</div>
                 </div>
-                <div class="bg-primary-500 p-3 rounded-md mt-2 text-white text-center cursor-pointer">聯絡資訊:<span class="ms-2">0919283493</span></div>
+                <div class="bg-primary-500 p-3 rounded-md mt-2 text-white text-center cursor-pointer">聯絡資訊:<span class="ms-2">{{ detailProduct.origin_price }}</span></div>
             </div>
             <div class="shadow-md rounded-md p-4 m-4 bg-white">
                 <div class="text-primary-500 font-bold text-xl mb-2">瀏覽紀錄</div>
@@ -132,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRefs, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG } from '@/consts/front.const'
@@ -148,12 +148,20 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useRoute } from 'vue-router';
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
+const { detailProduct } = storeToRefs(homeSotre)
+
 //swiper
 const onSwiper = (swiper: any) => {
 };
 const onSlideChange = () => {
 };
+const route = useRoute();
+// const { id } = toRefs(route.params);
+const reactiveParams = reactive(route.params);
+const { id } = toRefs(reactiveParams);
+
 function productsList() {
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
@@ -164,23 +172,28 @@ function productsList() {
                 tagEQ: '',
                 tagTIME: '',
             }));
-            recommend()
             homeSotre.tag()
         }
     })
 }
-//推薦租屋
-function recommend() {
-    const foundProduct = Products.value.find(product =>
-        product.title === '信義安和六張犁台北醫學大學獨立陽台'
-    )
-    if (foundProduct) {
-        recommendProduct.value = foundProduct;
-        console.log(recommendProduct.value)
-    }
+//取得產品
+function product() {
+    homeSotre.getDetailProduct(id.value).subscribe((res) => {
+        if (res) {
+            detailProduct.value = {
+                ...res.product,
+                tagRULE: '',
+                tagEQ: '',
+                tagTIME: '',
+            }
+            homeSotre.detailTag()
+            console.log(detailProduct.value)
+        }
+    })
 }
 onMounted(() => {
-    productsList()
+    productsList(),
+    product()
 })
 </script>
 <style>
