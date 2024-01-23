@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-xl ms-auto p-6">
+    <div class="max-w-screen-xl ms-auto p-6 mx-auto">
     <div class="m-4">
         <swiper
             :modules="modules"
