@@ -1,22 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: ()=> import('../views/front/front.vue'),
+      component: ()=> import('../views/front/frontView.vue'),
       children: [
         {
           //首頁
           path: 'home',
-          component: ()=>import('../views/front/home.vue')
+          component: ()=>import('../views/front/homeView.vue')
         },
         {
           //詳細商品頁
           path: 'product-list/product/:id',
-          component: () => import('../views/front/product.vue')
+          component: () => import('../views/front/productView.vue')
         },
 
       ]
@@ -24,7 +23,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue'),
+      component: () => import('../views/LoginView.vue'),
       meta: { title: '登入' },
     },
     {

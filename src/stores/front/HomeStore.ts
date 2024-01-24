@@ -25,6 +25,8 @@ export const useHomeStore = defineStore('HomeStore', () => {
     const apiStore = useApiStore();
     const recommendProduct:Ref<any> = ref({});
     const detailProduct:Ref<any> = ref({});
+    // 在組建初始化時從本地獲取數據
+    const favoriteList = ref(JSON.parse(sessionStorage.getItem('favoriteList')!) || []);
 
     function getProduct(): Observable<any> {
         const url = `api/${import.meta.env.VITE_APP_PATH}/products/all`
@@ -41,6 +43,23 @@ export const useHomeStore = defineStore('HomeStore', () => {
                 return res.data
             })
         )
+    }
+    //添加近我的最愛
+    function toggleFavorite(choose:any){
+        const foundProduct = favoriteList.value.findIndex((product:any) => {
+            return product.id === choose.id;
+        });
+    if (foundProduct !== -1) {
+        // 如果找到了，说明已经在收藏列表中，移除它
+        favoriteList.value.splice(foundProduct, 1);
+        choose.isFavorite = false;
+    } else {
+        // 如果没找到，说明不在收藏列表中，添加它
+        favoriteList.value.push(choose);
+        choose.isFavorite = true;
+        }
+        console.log(favoriteList.value)
+        sessionStorage.setItem('favoriteList',JSON.stringify(favoriteList.value))
     }
     //判斷租屋tag
     function tag() {
@@ -91,6 +110,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite
     }
 })

@@ -8,7 +8,11 @@
         <div>{{ sortHotStore.price }}</div>
     </div>
     <div class="absolute top-3 right-3">
-        <i class=" bi bi-bookmark-fill text-white border p-2 rounded-full "></i> 
+        <i 
+        @click.prevent="$emit('toggle-favorite',sortHotStore)"
+        class=" bi text-white border p-2 rounded-full"
+        :class="[sortHotStore.isFavorite? 'bi-bookmark-fill':'bi-bookmark']"
+        ></i> 
     </div>
     </div>    
 </template>
@@ -21,6 +25,7 @@ const props = defineProps({
         required: true
     }
 })
+
 onMounted(() => {
 })
 </script>
