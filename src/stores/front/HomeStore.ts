@@ -9,6 +9,7 @@ import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT } from '@/consts/front.const'
 export const useHomeStore = defineStore('HomeStore', () => {
     const hotProducts: Ref<any[]> = ref([]);
     const newProducts: Ref<any[]> = ref([]);
+    const record =ref(JSON.parse(sessionStorage.getItem('getRecord')!)||[]);
     const Products = ref<ProductIner[]>([{
     category: '',
     content: '',
@@ -110,6 +111,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record
     }
 })
