@@ -50,7 +50,12 @@
                     v-if="hotProducts[0]"
                     :to="`product-list/product/${hotProducts[0].id}`"
                     >
-                    <HOTSTORE class=" flex-auto m-2 min-h-[150px] md:min-h-[318px]"  :sortHotStore="hotProducts[0]"></HOTSTORE>
+                    <HOTSTORE 
+                    class=" flex-auto m-2 min-h-[150px] md:min-h-[318px] "  
+                    :sortHotStore="hotProducts[0]"
+                    @toggle-favorite="toggleFavorite"
+                    >
+                    </HOTSTORE>
                     </router-link>
                 </div>
                 <div class="card2 grid grid-cols-1 md:grid-cols-2"> 
@@ -67,7 +72,8 @@
                     >
                     <HOTSTORE  
                     class="min-h-[150px] m-2"
-                      :sortHotStore="item"></HOTSTORE>
+                      :sortHotStore="item"
+                      @toggle-favorite="toggleFavorite"></HOTSTORE>
                     </router-link >
                     </template>
                 </template>
@@ -107,7 +113,14 @@
         @slideChange="onSlideChange"
         >
             <swiper-slide v-for="(item) in newProducts" :key="item.id">
-                <GOODPRODUCT class="m-2 rounded overflow-hidden" :sortGoodStore="item"></GOODPRODUCT>
+                <router-link
+                :to="`product-list/product/${item.id}`"
+                >
+                <GOODPRODUCT 
+                class="m-2 rounded overflow-hidden" :sortGoodStore="item"
+                @toggle-favorite="toggleFavorite"
+                ></GOODPRODUCT>
+                </router-link>
             </swiper-slide>        
             <div class="swiper-button-prev swiper-custom 
                 ml-5">
@@ -278,8 +291,8 @@ import { storeToRefs } from 'pinia';
 import { Field, Form } from 'vee-validate';
 import INPUT from '@/components/form/Input.vue'
 import Button from "@/components/form/Button.vue";
-import HOTSTORE from '@/components/HotStore.vue';
-import GOODPRODUCT from '@/components/GoodProduct.vue';
+import HOTSTORE from '@/components/front/HotStore.vue';
+import GOODPRODUCT from '@/components/front/GoodProduct.vue';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import { onMounted, ref } from 'vue';
 import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG } from '@/consts/front.const'
@@ -298,7 +311,7 @@ import 'swiper/css/scrollbar';
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
 
 const homeSotre = useHomeStore()
-const { hotProducts, Products, newProducts, recommendProduct } = storeToRefs(homeSotre)
+const { hotProducts, Products, newProducts, recommendProduct,favoriteList } = storeToRefs(homeSotre)
 function productsList() {
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
@@ -328,8 +341,11 @@ function sortHotProducts() {
         const temHot = Products.value.filter((item: any) => item.unit === "透天")
         const arr = new Set<number>([]); //放隨機數
         if (temHot.length < 6) {
-            hotProducts.value = Products.value
-            console.log(Products.value)
+            hotProducts.value = Products.value.map(item=>{
+                let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == item.id);
+                return {...item, isFavorite:foundFavorite?true : false}
+            })
+            console.log(hotProducts.value)
         }
         else {
             const temHotProduct: any[] = [];
@@ -338,19 +354,25 @@ function sortHotProducts() {
                 arr.add(num)
             }
             arr.forEach((i) => {
-                temHotProduct.push(temHot[i])
+                let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == temHot[i].id);
+                temHotProduct.push({...temHot[i], isFavorite: foundFavorite ? true : false})
             });
             hotProducts.value = temHotProduct
             console.log(hotProducts.value)
         }
     }
 }
+function toggleFavorite(item:any){
+    homeSotre.toggleFavorite(item)
+}
 //最新餐廳
 function newProduct() {
     const temNewArray: any[] = [];
     if (Products.value.length > 0) {
-        for (let index = 0; index < 6; index += 1){
-            temNewArray.push(Products.value[index])
+        for (let index = 0; index < 6 && index < Products.value.length; index += 1){
+            let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == Products.value[index].id)
+            console.log(foundFavorite)
+            temNewArray.push({...Products.value[index],isFavorite:foundFavorite? true:false})
         }
         newProducts.value = temNewArray
     }
@@ -366,16 +388,17 @@ function recommend() {
     }
 }
 
-//判斷租屋tag
-
 
 onMounted(() => {
     productsList()
+    newProduct()
 })
 </script>
 <style>
 .swiper-button-prev:after, .swiper-button-next:after{
     display:none
 }
-
+.favoriteClass{
+    background-color: red;
+}
 </style>
