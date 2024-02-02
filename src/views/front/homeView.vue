@@ -426,6 +426,7 @@ function recommend() {
 onMounted(() => {
     productsList()
     newProduct()
+    console.log('測試')
 })
 </script>
 <style>
