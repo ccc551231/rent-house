@@ -128,6 +128,7 @@ import { onMounted, ref, toRefs, reactive, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import RECORD from '@/components/front/Record.vue';
+
 const homeSotre = useHomeStore();
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
@@ -182,17 +183,11 @@ function product() {
             if(findFavorite){
                 detailProduct.value={
                     ...findFavorite,
-                    tagRULE: '',
-                    tagEQ: '',
-                    tagTIME: '',
                 }
             }
             else{
             detailProduct.value = {
                 ...res.product,
-                tagRULE: '',
-                tagEQ: '',
-                tagTIME: '',
             }}
             homeSotre.detailTag()
             console.log(detailProduct.value)

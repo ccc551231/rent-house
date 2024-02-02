@@ -23,6 +23,16 @@ export const useHomeStore = defineStore('HomeStore', () => {
     title: '',
     unit: '',
     }]);
+    //選項資料
+    const rolesOptions = ref([
+        { label: "台北市", value: "台北市" },
+        { label: "新北市", value: "新北市" },
+        { label: "新竹市", value: "新竹市" },
+        { label: "台中市", value: "台中市" },
+        { label: "台南市", value: "台南市" },
+        { label: "高雄市", value: "高雄市" },
+        { label: "不限", value: "" },
+    ]);
     const apiStore = useApiStore();
     const recommendProduct:Ref<any> = ref({});
     const detailProduct:Ref<any> = ref({});
@@ -37,6 +47,7 @@ export const useHomeStore = defineStore('HomeStore', () => {
             })
         )
     }
+
     function getDetailProduct(id:any): Observable<any>{
         const url = `api/${import.meta.env.VITE_APP_PATH}/product/${id}`
         return apiStore.getRequest(url).pipe(
@@ -111,6 +122,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions
     }
 })

@@ -7,7 +7,6 @@
       </li>
     </ol>
   </nav>
-
 </template>
 <script setup>
 import { ref, watch, onMounted } from 'vue'
@@ -17,17 +16,14 @@ const route = useRoute()
 const breadcrumbList = ref([])
 
 const isHome = () => {
-  return route.name === 'Home'
+  return route.name === 'home'
 }
 
 const getBreadcrumbs = () => {
   // 匹配到当前路由
   let matched = route.matched
-  if (!isHome(matched[0])) {
-    matched = [{ path: '/', meta: { title: '首頁' } }].concat(matched)
-  }
-  // 从 breadcrumb 列表中排除名称为 'admin' 的路由
-  breadcrumbList.value = matched.filter(item => item.name !== 'admin')
+  console.log(matched)
+  breadcrumbList.value = matched
 }
 
 watch(route, getBreadcrumbs)

@@ -36,6 +36,5 @@ const props = defineProps({
     }
 })
 onMounted(() => {
-    console.log(props.sortGoodStore)
 })
 </script>

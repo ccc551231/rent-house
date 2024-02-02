@@ -22,21 +22,33 @@
                         name="keyWord">
                             <INPUT 
                                 v-bind="field"
+                                :placeholder="'請輸入關鍵字'"
+                                :model-value="initValues.keyWord = value"
+                                :error-message="errorMessage"
+                                :size="'m'"
                                 />
                         </Field>
                     </div>
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
                         <label>地區</label>
                         <Field 
-                        id="keyWord" 
+                        id="locationId" 
                         v-slot="{ field, value, errorMessage }" 
-                        name="keyWord">
-                            <INPUT 
-                                v-bind="field"
-                                />
+                        name="locationId">
+                        <SELECT
+                            :id="'locationId'"
+                            v-bind="field"
+                            :modelValue="value"
+                            class="form-input w-full"
+                            :options="rolesOptions"
+                            :placeholder="'請選擇角色'"
+                            :error-message="errorMessage"
+                            :size="'m'"
+                            /> 
                         </Field>
                     </div>
-                    <Button :type="'button'" class=" whitespace-nowrap " >搜尋餐廳</Button>
+                    <Button 
+                    :type="'submit'" class=" whitespace-nowrap " >搜尋餐廳</Button>
                 </Form>
             </div>
         </div>
@@ -219,9 +231,13 @@
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">熱門租房類型</div>
             <div class="grid grid-cols-1 md:grid-cols-2 text-white">
-                <div 
-                class="bg-primary-500 m-2 p-4 rounded-md"
+                
+                <template 
                 v-for="item in ['ONE', 'SECAND', 'THREE', 'FOUR']" :key="item"
+                >
+                <router-link
+                class="bg-primary-500 m-2 p-4 rounded-md cursor-pointer"
+                :to="`category/${item}`"
                 >
                     <div class="text-2xl">{{ CATEGORY[item] }}</div>
                     <div class="grid grid-cols-1 items-center sm:grid-cols-3">
@@ -240,7 +256,8 @@
                     <div class="mt-5">查看更多房子
                         <span class="rounded-full border px-1 py-0.5  ">&#8594;</span>
                     </div>
-                </div>
+                </router-link>
+                </template>
             </div>  
         </div>
         <!--合作企業-->
@@ -296,7 +313,10 @@ import GOODPRODUCT from '@/components/front/GoodProduct.vue';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import { onMounted, ref } from 'vue';
 import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG } from '@/consts/front.const'
-
+import SELECT from '@/components/form/Select.vue';
+import * as yup from 'yup';
+import { useRouter, Router } from 'vue-router';
+const router: Router = useRouter();
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y , Autoplay } from 'swiper/modules';
 
@@ -311,22 +331,21 @@ import 'swiper/css/scrollbar';
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
 
 const homeSotre = useHomeStore()
-const { hotProducts, Products, newProducts, recommendProduct,favoriteList } = storeToRefs(homeSotre)
+const { hotProducts, Products, newProducts, recommendProduct,favoriteList,rolesOptions } = storeToRefs(homeSotre)
 function productsList() {
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
             // Products.value = res.products
             Products.value = res.products.map((product: any) => ({
-                ...product,
-                tagRULE: '',
-                tagEQ: '',
-                tagTIME: ''
-            }));
-            console.log(Products.value)
+                ...product
+            }
+            ));
+            //tag一定要在前面才能先抓到tag資訊並判斷sortHotProducts,newProduct,recommend
+            homeSotre.tag()
             sortHotProducts()
             newProduct()
             recommend()
-            homeSotre.tag()
+            console.log(hotProducts.value)
         }
     })
 }
@@ -335,6 +354,20 @@ const onSwiper = (swiper:any) => {
 };
 const onSlideChange = () => {
 };
+// 預設值
+  const initValues = ref({
+    keyWord:"",
+    locationId: ""
+  })
+  const schema = yup.object({
+})
+function onSubmit(value:any){
+    router.push({
+    path: '/search',
+    query: { data: JSON.stringify(value) }  // 使用 JSON.stringify 將物件轉為字串
+  });    
+  console.log(value)
+}
 //熱門產品
 function sortHotProducts() {
     if (Products.value.length > 0) {
@@ -353,6 +386,7 @@ function sortHotProducts() {
                 const num = Math.floor(Math.random() * temHot.length)
                 arr.add(num)
             }
+            //過濾所有product找到有對應favorieList的並放入hotProducts陣列中
             arr.forEach((i) => {
                 let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == temHot[i].id);
                 temHotProduct.push({...temHot[i], isFavorite: foundFavorite ? true : false})
