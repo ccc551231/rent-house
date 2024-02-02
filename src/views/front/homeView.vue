@@ -15,28 +15,40 @@
                       @submit="onSubmit($event)"
                       class="flex flex-col sm:flex-row items-end w-full">
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
-                                <label>關鍵字</label>
-                                <Field 
-                                id="keyWord" 
-                                v-slot="{ field, value, errorMessage }" 
-                                name="keyWord">
-                                    <INPUT 
-                                        v-bind="field"
-                                        />
-                                </Field>
+                        <label>關鍵字</label>
+                        <Field 
+                        id="keyWord" 
+                        v-slot="{ field, value, errorMessage }" 
+                        name="keyWord">
+                            <INPUT 
+                                v-bind="field"
+                                :placeholder="'請輸入關鍵字'"
+                                :model-value="initValues.keyWord = value"
+                                :error-message="errorMessage"
+                                :size="'m'"
+                                />
+                        </Field>
                     </div>
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
-                                    <label>地區</label>
-                                    <Field 
-                                    id="keyWord" 
-                                    v-slot="{ field, value, errorMessage }" 
-                                    name="keyWord">
-                                        <INPUT 
-                                            v-bind="field"
-                                            />
-                                    </Field>
+                        <label>地區</label>
+                        <Field 
+                        id="locationId" 
+                        v-slot="{ field, value, errorMessage }" 
+                        name="locationId">
+                        <SELECT
+                            :id="'locationId'"
+                            v-bind="field"
+                            :modelValue="value"
+                            class="form-input w-full"
+                            :options="rolesOptions"
+                            :placeholder="'請選擇角色'"
+                            :error-message="errorMessage"
+                            :size="'m'"
+                            /> 
+                        </Field>
                     </div>
-                    <Button :type="'button'" class=" whitespace-nowrap " >搜尋餐廳</Button>
+                    <Button 
+                    :type="'submit'" class=" whitespace-nowrap " >搜尋餐廳</Button>
                 </Form>
             </div>
         </div>
@@ -44,15 +56,40 @@
         <!-- 熱門租屋 padding-6-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">熱門出租</div>
-            <div class="flex flex-col md:flex-row">
-            <div class="w-full md:w-1/2 flex min-h-[150px] md:flex-col">
-            <HOTSTORE class=" flex-auto m-2" v-if="hotProducts[0]" :sortHotStore="hotProducts[0]"></HOTSTORE>
-           </div>
-           <div class="w-full md:w-1/2  grid grid-cols-1  md:grid-cols-2">
-            <template v-for="(item, index) in hotProducts" :key="item.id">
-            <HOTSTORE v-if="index >= 1 && index <= 4" class=" min-h-[150px] m-2" :sortHotStore="item"></HOTSTORE>
-            </template>
-           </div>
+            <div class=" grid grid-cols-1 md:grid-cols-2">
+                <div class="card1 ">
+                    <router-link 
+                    v-if="hotProducts[0]"
+                    :to="`product-list/product/${hotProducts[0].id}`"
+                    >
+                    <HOTSTORE 
+                    class=" flex-auto m-2 min-h-[150px] md:min-h-[318px] "  
+                    :sortHotStore="hotProducts[0]"
+                    @toggle-favorite="toggleFavorite"
+                    >
+                    </HOTSTORE>
+                    </router-link>
+                </div>
+                <div class="card2 grid grid-cols-1 md:grid-cols-2"> 
+                   <template 
+                    v-for="(item, index) in hotProducts" 
+                    :key="item.id"
+                    >
+                    <template
+                     v-if="index >= 1 && index <= 4">
+                    
+                    <router-link 
+                    :to="`product-list/product/${item.id}`"
+                    class=""
+                    >
+                    <HOTSTORE  
+                    class="min-h-[150px] m-2"
+                      :sortHotStore="item"
+                      @toggle-favorite="toggleFavorite"></HOTSTORE>
+                    </router-link >
+                    </template>
+                </template>
+                </div>
             </div>
         </div> 
         <!-- 最新租屋-->  
@@ -88,7 +125,14 @@
         @slideChange="onSlideChange"
         >
             <swiper-slide v-for="(item) in newProducts" :key="item.id">
-                <GOODPRODUCT class="m-2 rounded overflow-hidden" :sortGoodStore="item"></GOODPRODUCT>
+                <router-link
+                :to="`product-list/product/${item.id}`"
+                >
+                <GOODPRODUCT 
+                class="m-2 rounded overflow-hidden" :sortGoodStore="item"
+                @toggle-favorite="toggleFavorite"
+                ></GOODPRODUCT>
+                </router-link>
             </swiper-slide>        
             <div class="swiper-button-prev swiper-custom 
                 ml-5">
@@ -187,9 +231,13 @@
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">熱門租房類型</div>
             <div class="grid grid-cols-1 md:grid-cols-2 text-white">
-                <div 
-                class="bg-primary-500 m-2 p-4 rounded-md"
+                
+                <template 
                 v-for="item in ['ONE', 'SECAND', 'THREE', 'FOUR']" :key="item"
+                >
+                <router-link
+                class="bg-primary-500 m-2 p-4 rounded-md cursor-pointer"
+                :to="`category/${item}`"
                 >
                     <div class="text-2xl">{{ CATEGORY[item] }}</div>
                     <div class="grid grid-cols-1 items-center sm:grid-cols-3">
@@ -208,7 +256,8 @@
                     <div class="mt-5">查看更多房子
                         <span class="rounded-full border px-1 py-0.5  ">&#8594;</span>
                     </div>
-                </div>
+                </router-link>
+                </template>
             </div>  
         </div>
         <!--合作企業-->
@@ -259,12 +308,15 @@ import { storeToRefs } from 'pinia';
 import { Field, Form } from 'vee-validate';
 import INPUT from '@/components/form/Input.vue'
 import Button from "@/components/form/Button.vue";
-import HOTSTORE from '@/components/HotStore.vue';
-import GOODPRODUCT from '@/components/GoodProduct.vue';
+import HOTSTORE from '@/components/front/HotStore.vue';
+import GOODPRODUCT from '@/components/front/GoodProduct.vue';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import { onMounted, ref } from 'vue';
 import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG } from '@/consts/front.const'
-
+import SELECT from '@/components/form/Select.vue';
+import * as yup from 'yup';
+import { useRouter, Router } from 'vue-router';
+const router: Router = useRouter();
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y , Autoplay } from 'swiper/modules';
 
@@ -279,22 +331,21 @@ import 'swiper/css/scrollbar';
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
 
 const homeSotre = useHomeStore()
-const { hotProducts, Products, newProducts, recommendProduct } = storeToRefs(homeSotre)
+const { hotProducts, Products, newProducts, recommendProduct,favoriteList,rolesOptions } = storeToRefs(homeSotre)
 function productsList() {
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
             // Products.value = res.products
             Products.value = res.products.map((product: any) => ({
-                ...product,
-                tagRULE: '',
-                tagEQ: '',
-                tagTIME: ''
-            }));
-            console.log(Products.value)
+                ...product
+            }
+            ));
+            //tag一定要在前面才能先抓到tag資訊並判斷sortHotProducts,newProduct,recommend
+            homeSotre.tag()
             sortHotProducts()
             newProduct()
             recommend()
-            homeSotre.tag()
+            console.log(hotProducts.value)
         }
     })
 }
@@ -303,14 +354,31 @@ const onSwiper = (swiper:any) => {
 };
 const onSlideChange = () => {
 };
+// 預設值
+  const initValues = ref({
+    keyWord:"",
+    locationId: ""
+  })
+  const schema = yup.object({
+})
+function onSubmit(value:any){
+    router.push({
+    path: '/search',
+    query: { data: JSON.stringify(value) }  // 使用 JSON.stringify 將物件轉為字串
+  });    
+  console.log(value)
+}
 //熱門產品
 function sortHotProducts() {
     if (Products.value.length > 0) {
         const temHot = Products.value.filter((item: any) => item.unit === "透天")
         const arr = new Set<number>([]); //放隨機數
         if (temHot.length < 6) {
-            hotProducts.value = Products.value
-            console.log(Products.value)
+            hotProducts.value = Products.value.map(item=>{
+                let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == item.id);
+                return {...item, isFavorite:foundFavorite?true : false}
+            })
+            console.log(hotProducts.value)
         }
         else {
             const temHotProduct: any[] = [];
@@ -318,20 +386,27 @@ function sortHotProducts() {
                 const num = Math.floor(Math.random() * temHot.length)
                 arr.add(num)
             }
+            //過濾所有product找到有對應favorieList的並放入hotProducts陣列中
             arr.forEach((i) => {
-                temHotProduct.push(temHot[i])
+                let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == temHot[i].id);
+                temHotProduct.push({...temHot[i], isFavorite: foundFavorite ? true : false})
             });
             hotProducts.value = temHotProduct
             console.log(hotProducts.value)
         }
     }
 }
+function toggleFavorite(item:any){
+    homeSotre.toggleFavorite(item)
+}
 //最新餐廳
 function newProduct() {
     const temNewArray: any[] = [];
     if (Products.value.length > 0) {
-        for (let index = 0; index < 6; index += 1){
-            temNewArray.push(Products.value[index])
+        for (let index = 0; index < 6 && index < Products.value.length; index += 1){
+            let foundFavorite = favoriteList.value.find((favorite:any)=>favorite.id == Products.value[index].id)
+            console.log(foundFavorite)
+            temNewArray.push({...Products.value[index],isFavorite:foundFavorite? true:false})
         }
         newProducts.value = temNewArray
     }
@@ -347,16 +422,17 @@ function recommend() {
     }
 }
 
-//判斷租屋tag
-
 
 onMounted(() => {
     productsList()
+    newProduct()
 })
 </script>
 <style>
 .swiper-button-prev:after, .swiper-button-next:after{
     display:none
 }
-
+.favoriteClass{
+    background-color: red;
+}
 </style>

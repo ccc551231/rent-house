@@ -8,6 +8,13 @@
             <div class="absolute bottom-0 left-0 p-2 w-full backdrop-blur-sm bg-white/10 z-10">
                 <p class="text-white">{{ sortGoodStore.title }}</p>
             </div>
+            <div class="absolute top-3 right-3 cursor-pointer">
+                <i 
+                @click.prevent = "$emit('toggle-favorite',sortGoodStore)"
+                class=" bi  text-white border p-2 rounded-full"
+                :class="[sortGoodStore.isFavorite? 'bi-bookmark-fill': 'bi-bookmark']"
+                ></i> 
+         </div>
         </div>
         <div class="bg-white p-2 flex justify-between ">
                 <div >

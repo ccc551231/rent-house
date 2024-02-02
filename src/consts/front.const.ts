@@ -8,7 +8,8 @@ export enum CATEGORY {
     ONE = '公寓',
     SECAND = '電梯大樓',
     THREE = '透天',
-    FOUR = '別墅'
+    FOUR = '別墅',
+    FIVE = '全部'
 }
 
 export enum TAGTIME {

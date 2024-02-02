@@ -1,11 +1,8 @@
-
-import type { log } from 'console';
-
 <template>
     <section class="bg-primary-300 ">
          <div class="max-w-screen-xl  item-center mx-auto">
             <div class="flex justify-between">
-                <breadCrumbs></breadCrumbs>
+                <BREADCRUMBS></BREADCRUMBS>
                 <button @click="onPositiveClick(CRUD_CONFIG.CREATE)">新增</button>
             </div>
             
@@ -26,7 +23,7 @@ import type { log } from 'console';
     </section>
 </template>
 <script setup lang="ts">
-import breadCrumbs from '@/components/breadCrumbs.vue'
+import BREADCRUMBS from '@/components/breadCrumbs.vue'
 import { useRoute } from 'vue-router';
 import Table from '@/components/Table.vue'
 import { useBackProductStore } from '@/stores/BackProductStore';

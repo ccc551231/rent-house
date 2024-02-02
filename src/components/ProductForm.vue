@@ -212,7 +212,6 @@ import TOGGLE from "@/components/form/Toggle.vue";
 import Button from "@/components/form/Button.vue";
 import { nextTick } from 'vue';
 
-
 const productStore = useBackProductStore()
 const {  formType, selectedProduct } = storeToRefs(productStore)
 const formTitle = computed(() => {
