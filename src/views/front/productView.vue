@@ -104,7 +104,12 @@
                 src="https://images.591.com.tw/index/medium/no-photo-new.png"/>
                 <div>屋主: 張小姐</div>
                 </div>
-                <div class="bg-primary-500 p-3 rounded-md mt-2 text-white text-center cursor-pointer">聯絡資訊:<span class="ms-2">{{ detailProduct.origin_price }}</span></div>
+                <div
+                    @click.prevent="addToCard(detailProduct)"
+                    class="cursor-pointer bg-primary-500 p-3 rounded-md mt-2 text-white text-center cursor-pointer">
+                    聯絡資訊:
+                    <span class="ms-2">{{ detailProduct.origin_price }}</span>
+                </div>
             </div>
             <div class="shadow-md rounded-md p-4 m-4 bg-white">
                 <div class="text-primary-500 font-bold text-xl mb-2">瀏覽紀錄</div>
@@ -139,9 +144,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 const route = useRoute();
-
+const router = useRouter();
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
 const { detailProduct,favoriteList,record,Products } = storeToRefs(homeSotre)
 
@@ -211,6 +216,15 @@ function getRecord(product:any) {
     record.value.unshift(product);
     sessionStorage.setItem('getRecord',JSON.stringify(record.value))
     console.log(record.value)
+}
+//加入購物車
+function addToCard(item:any){
+    homeSotre.addCart(item.id).subscribe((res)=>{
+       if(res){
+        console.log(res)
+        router.push('/content')
+       }
+    })
 }
 //監看路由變化
 watch(

@@ -56,6 +56,33 @@ export const useHomeStore = defineStore('HomeStore', () => {
             })
         )
     }
+    //添加進購物車
+    function addCart(id:string): Observable<any>{
+        const url = `api/${import.meta.env.VITE_APP_PATH}/cart`
+        return apiStore.postRequest(url,{data:{product_id: id, qty: 1 }}).pipe(
+            map((res)=>{
+                return res.data
+            })
+        )
+    }
+    //取得購物車列表
+    function getCart():Observable<any>{
+        const url = `api/${import.meta.env.VITE_APP_PATH}/cart`
+        return apiStore.getRequest(url).pipe(
+            map((res)=>{
+                return res.data
+            })
+        )
+    }
+    //送出訂單
+    function sendCart(product:any):Observable<any>{
+        const url = `api/${import.meta.env.VITE_APP_PATH}/order`
+        return apiStore.postRequest(url,{data: product}).pipe(
+            map((res)=>{
+                return res.data
+            })
+        )
+    }
     //添加近我的最愛
     function toggleFavorite(choose:any){
         const foundProduct = favoriteList.value.findIndex((product:any) => {
@@ -122,6 +149,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions,addCart,getCart,sendCart
     }
 })

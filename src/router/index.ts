@@ -35,6 +35,11 @@ const router = createRouter({
           path:'bookmark',
           component: ()=>import('../views/front/bookMarkView.vue'),
           meta:{title:'我的收藏'}
+        },
+        {
+          path:'content',
+          component: ()=>import('../views/front/contentView.vue'),
+          meta:{title:'聯絡業主'}
         }
 
       ]
