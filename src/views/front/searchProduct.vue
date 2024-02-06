@@ -71,7 +71,7 @@
             </span>
         </div>
         <div  class="hidden md:block col-span-1 sticky top-4 h-[52rem] overflow-y-auto mt-4 rounded-md">
-            <PRODUCTDETAILCARD v-if="selected" :product="selected" @openModel="openModel"></PRODUCTDETAILCARD>
+            <PRODUCTDETAILCARD v-if="selected" :product="selected" @openModel="openModel" @addToCart="addToCard"></PRODUCTDETAILCARD>
         </div>
         <div v-if="newProduct.length === 0" class="absolute pt-10 w-full flex justify-center text-xl">
             <i class="bi bi-search mr-2 "></i>
@@ -99,7 +99,7 @@ import { useRoute,useRouter} from 'vue-router'
 const route = useRoute()
 const router = useRouter()
   // 預設值
-  const initValues = ref({
+const initValues = ref({
     keyWord:"",
     locationId: ""
   })
@@ -192,6 +192,15 @@ function openModel(product:any){
         getImgs.value=product
         productImg.value.showModel();
     }
+}
+//加入購物車
+function addToCard(item:any){
+    homeSotre.addCart(item.id).subscribe((res)=>{
+       if(res){
+        console.log(res)
+        router.push('/content')
+       }
+    })
 }
 const searchData=ref({})
 

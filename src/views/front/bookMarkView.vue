@@ -12,10 +12,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="flex flex-col items-center md:items-end">
+                <div class="flex flex-row justify-center md:justify-end gap-4">
                     <div class="flex flex-row items-center  md:flex-col">
                         <div>目前收藏</div>
                         <div class="text-[20px] text-primary-500 md:text-[60px]">{{ favoriteList.length }}</div>
+                    </div>
+                    <div class="flex flex-row items-center  md:flex-col">
+                        <div>目前收藏</div>
+                        <div class="text-[20px] text-primary-500 md:text-[60px]">{{ orders.length }}</div>
                     </div>
                 </div>
             </div>
@@ -51,7 +55,27 @@
                 </PRODUCTFAVORITE>
             </template>
             </div> 
+
+            <div v-if="iscontent"
+            class="grid grid-cols-1 gap-4 md:grid-cols-2" >
+            <template  
+                v-for="item in orders" :key="item.id"
+            > 
+            <template v-if="Object.keys(item.products).length>0"> 
+                <template
+                v-for="(obj,index) in Object.keys(item.products)" :key="obj">
+                    <PRODUCTFAVORITE
+                    v-if="index === Object.keys(item.products).length - 1"
+                    :productList="item.products[obj].product"
+                    @toggle-favorite="toggleFavorite"
+                    >
+                    </PRODUCTFAVORITE>
+                    </template>
+                </template> 
+            </template>
+            </div> 
         </div>
+        
     </div>
 </template>
 <script setup lang="ts">
@@ -64,6 +88,7 @@ const homeSotre = useHomeStore()
 const { favoriteList } = storeToRefs(homeSotre)
 const isFavorite = ref(true);
 const iscontent = ref(false);
+const orders = ref({});
 
 //轉換收藏
 function toggleFavorite(item:any){
@@ -88,8 +113,17 @@ function choose(item:string){
  function handleLinkClick(){
     console.log('111')
  }
+ function getOrder(){
+    homeSotre.getOrder().subscribe((res)=>{
+        if(res){
+            orders.value = res.orders
+            console.log(res.orders)
+        }
+    })
+ }
   onMounted(()=>{
     favoriteList
    console.log(favoriteList.value)
+   getOrder()
   })
 </script>

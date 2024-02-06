@@ -1,19 +1,19 @@
 <template>
     <div class="min-w-screen-xl">
         <!-- 搜尋banner背景顏色 -->
-        <div class="bg-primary-500">
+        <div class="bg-gradient-to-r from-primary-500 to-primary-800 animate-gradient">
         <!-- 搜尋banner padding-6-->
-        <div class="max-w-screen-xl  mx-auto flex flex-wrap justify-center align-center items-center p-6 ">
-            <div class="text-5xl">立即搜尋早餐
+        <div class="max-w-screen-xl  mx-auto flex flex-wrap justify-center align-center items-center p-8 ">
+            <div class="text-5xl text-white ">您想住在哪裡？
                 <br>
-                Got Youself A Fine Job !
+                <span class="text-3xl text-white">Find your favorite house</span>
             </div>
-            <img src="@/assets/banner.png" class="banner-pic w-[32rem]">
-            <div class="w-full  bg-white border-primary-500 border mt-[-6rem] p-4 m-2">
+            <img src="@/assets/banner.svg" class="banner-pic w-[38rem]">
+            <div class="w-full rounded-md bg-white  mt-[-2rem] p-4 m-2">
                 <Form :validation-schema="schema"
                       :initial-values="initValues"
                       @submit="onSubmit($event)"
-                      class="flex flex-col sm:flex-row items-end w-full">
+                      class="flex flex-col sm:flex-row items-end w-full ">
                     <div class="form-control flex flex-col items-start w-full mr-0 sm:mr-4">
                         <label>關鍵字</label>
                         <Field 
@@ -63,14 +63,14 @@
                     :to="`product-list/product/${hotProducts[0].id}`"
                     >
                     <HOTSTORE 
-                    class=" flex-auto m-2 min-h-[150px] md:min-h-[318px] "  
+                    class=" flex-auto m-2 min-h-[150px] md:min-h-[318px] rounded-md"  
                     :sortHotStore="hotProducts[0]"
                     @toggle-favorite="toggleFavorite"
                     >
                     </HOTSTORE>
                     </router-link>
                 </div>
-                <div class="card2 grid grid-cols-1 md:grid-cols-2"> 
+                <div class="card2 grid grid-cols-1 md:grid-cols-2 "> 
                    <template 
                     v-for="(item, index) in hotProducts" 
                     :key="item.id"
@@ -83,7 +83,7 @@
                     class=""
                     >
                     <HOTSTORE  
-                    class="min-h-[150px] m-2"
+                    class="min-h-[150px] m-2 rounded-md"
                       :sortHotStore="item"
                       @toggle-favorite="toggleFavorite"></HOTSTORE>
                     </router-link >
@@ -129,7 +129,7 @@
                 :to="`product-list/product/${item.id}`"
                 >
                 <GOODPRODUCT 
-                class="m-2 rounded overflow-hidden" :sortGoodStore="item"
+                class="m-2 rounded-md overflow-hidden" :sortGoodStore="item"
                 @toggle-favorite="toggleFavorite"
                 ></GOODPRODUCT>
                 </router-link>
@@ -149,11 +149,12 @@
         </swiper>
         </div>
         <!--推薦租屋-->
+    <div class="bg-white">
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">本週推薦出租</div>
-            <div class="grid grid-cols-1 md:grid-cols-5 m-2">
+            <div class="grid grid-cols-1 md:grid-cols-8 ">
                 <div 
-                    class="col-span-1 md:col-span-2  md:border-r-2 border-primary-500 mr-2 space-y-2"
+                    class="col-span-1 md:col-span-2  md:border-r-[0.5px] border-gray-100 space-y-2 p-4"
                     >
                     <div>
                         <img
@@ -174,7 +175,7 @@
                     <button>查看完整出屋資訊</button>
                 </div>
                 <div 
-                class="  col-span-1 md:col-span-3"
+                class=" col-span-1 md:col-span-6  px-4"
                 >
                     <div>租屋簡介</div>
                     <div class="grid grid-cols-1 md:grid-cols-5  mb-2 mt-2">
@@ -195,9 +196,10 @@
                             >
                                 <swiper-slide v-for="(item) in recommendProduct.imagesUrl" :key="item.id">
                                     <img 
-                                    class="w-full h-[180px] object-cover rounded-[0.5rem]" 
+                                    class="w-full h-[180px] object-cover rounded-[0.5rem] cursor-pointer" 
                                     :src="item" 
                                     alt=""
+                                    @click.prevent="openModel(recommendProduct.imagesUrl)"
                                     >
                                 </swiper-slide>        
                                 <div class="swiper-button-prev swiper-custom 
@@ -207,44 +209,65 @@
                         </div>
                     </div>
                     <div class="mt-2">租屋資訊</div>
-                    <div class="grid grid-cols-2 space-y-2 mt-2">
-                        <div>
-                            <i class="bi bi-calendar-event mr-2"></i>租住說明
-                            <br>
+                    <div class="border-[0.5px] border-gray-100 p-4 rounded-md group cursor-pointer ">
+                        <div class="grid grid-cols-2 space-y-2 ">
+                            <div>
+                            <div class="flex-row flex">
+                                <i class="bi bi-calendar-event mr-2 group-hover:text-primary-500"></i>
+                                <div class="relative overflow-hidden ">
+                                    <span class="px-2 inline-block z-10">租住說明</span>
+                                    <span class="absolute bg-primary-500 w-full h-full z-0 top-0 opacity-50 left-full transition-all duration-300 ease-in-out group-hover:left-0 "></span>
+                                </div>
+                            </div>
                             {{ recommendProduct.tagTIME }}
                         </div>
                         <div>
-                            <i class="bi bi-info-circle mr-2"></i>房屋守則
-                            <br>
+                            <div class="flex-row flex">
+                                <i class="bi bi-info-circle mr-2 group-hover:text-primary-500"></i>
+                                <div class="relative overflow-hidden ">
+                                    <span class="px-2 inline-block z-10">房屋守則</span>
+                                    <span class="absolute bg-primary-500 w-full h-full z-0 top-0 opacity-50 left-full transition-all duration-300 ease-in-out group-hover:left-0 "></span>
+                                </div>
+                            </div>
                             {{ recommendProduct.tagRULE }}
                         </div>
-                    </div>
-                    <div>
-                        <i class="bi bi-info-circle mr-2"></i>提供設備
-                        <br>
-                        {{ recommendProduct.tagEQ }}
+                        </div>
+                        
+                        <div>
+                            <div class="flex-row flex">
+                                <i class="bi bi-info-circle mr-2 group-hover:text-primary-500"></i>
+                                <div class="relative overflow-hidden ">
+                                    <span class="px-2 inline-block z-10">提供設備</span>
+                                    <span class="absolute bg-primary-500 w-full h-full z-0 top-0 opacity-50 left-full transition-all duration-300 ease-in-out group-hover:left-0 "></span>
+                                </div>
+                            </div>
+                            {{ recommendProduct.tagEQ }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!--租屋類型categoty-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl	font-bold">熱門租房類型</div>
             <div class="grid grid-cols-1 md:grid-cols-2 text-white">
                 
                 <template 
-                v-for="item in ['ONE', 'SECAND', 'THREE', 'FOUR']" :key="item"
+                v-for="(item,index) in ['ONE', 'SECAND', 'THREE', 'FOUR']" :key="item"
                 >
                 <router-link
-                class="bg-primary-500 m-2 p-4 rounded-md cursor-pointer"
+                :class="index===0 ? 'bg-primary-500':'bg-gray-100'"
+                class=" m-2 p-4 rounded-md cursor-pointer hover:bg-primary-500 group"
                 :to="`category/${item}`"
                 >
                     <div class="text-2xl">{{ CATEGORY[item] }}</div>
                     <div class="grid grid-cols-1 items-center sm:grid-cols-3">
-                        <div>
-                                <img 
-                                :src='TAGIMG[item]'
-                                class="col-span-1">
+                        <div class="flex justify-center">
+                            <img 
+                                :src="index===0 ? TAGIMG[item]: NOTTAGIMG[item]"
+                                class="col-span-1 p-2 h-[120px]"
+                            >
                             </div>
                         <div class="col-span-2">
                             <template v-for="obj in [TAGTIME, TAGRULE, TAGEQUIMENT]" :key="obj">
@@ -254,19 +277,20 @@
                         
                     </div>
                     <div class="mt-5">查看更多房子
-                        <span class="rounded-full border px-1 py-0.5  ">&#8594;</span>
+                        <span class="transition-all duration-300 rounded-full border border-white px-1.5 py-0.5 group-hover:translate-x-2 inline-block">&#8594;</span>
                     </div>
                 </router-link>
                 </template>
             </div>  
         </div>
+    </div>
         <!--合作企業-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div
             class="p-2 relative banner">
                 <img 
                 class="w-full h-[200px] "
-                src="https://img.tukuppt.com/bg_grid/00/03/29/BMuPp0QzDQ.jpg!/fh/350" alt="">
+                src="@/assets/home-banner.svg" alt="">
                 <button class="absolute left-[30px] top-[170px] text-white">聯絡我們 <span class="rounded-full border px-1 py-0.5  ">&#8594;</span></button>
             </div>
             <div class="text-center mt-3">
@@ -301,6 +325,7 @@
             </div>
         </div>
     </div>
+    <PRODUCTIMG ref="productImg" :getImgs="getImgs"></PRODUCTIMG>
 
 </template>
 <script setup lang="ts">
@@ -312,9 +337,11 @@ import HOTSTORE from '@/components/front/HotStore.vue';
 import GOODPRODUCT from '@/components/front/GoodProduct.vue';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import { onMounted, ref } from 'vue';
-import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG } from '@/consts/front.const'
+import { CATEGORY, TAGTIME, TAGRULE, TAGEQUIMENT, TAGIMG, NOTTAGIMG} from '@/consts/front.const'
 import SELECT from '@/components/form/Select.vue';
 import * as yup from 'yup';
+import PRODUCTIMG from '@/components/front/ProductImg.vue'
+
 import { useRouter, Router } from 'vue-router';
 const router: Router = useRouter();
 // import Swiper core and required modules
@@ -335,11 +362,11 @@ const { hotProducts, Products, newProducts, recommendProduct,favoriteList,rolesO
 function productsList() {
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
-            // Products.value = res.products
-            Products.value = res.products.map((product: any) => ({
-                ...product
-            }
-            ));
+            Products.value = res.products
+            // Products.value = res.products.map((product: any) => ({
+            //     ...product
+            // }
+            // ));
             //tag一定要在前面才能先抓到tag資訊並判斷sortHotProducts,newProduct,recommend
             homeSotre.tag()
             sortHotProducts()
@@ -421,7 +448,15 @@ function recommend() {
         console.log(recommendProduct.value)
     }
 }
-
+const productImg= ref(null);
+const getImgs = ref([])
+//打開子元件照片牆
+function openModel(product:any){
+    if (productImg.value !== null) {
+        getImgs.value=product
+        productImg.value.showModel();
+    }
+}
 
 onMounted(() => {
     productsList()
@@ -435,5 +470,22 @@ onMounted(() => {
 }
 .favoriteClass{
     background-color: red;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradientAnimation 4s infinite;
+  background-size: 200% 200%;
 }
 </style>
