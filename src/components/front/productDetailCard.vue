@@ -11,7 +11,7 @@
     <div class="flex w-full justify-between mt-4 mb-4 items-center text-lg font-bold text-primary-500">
         月租/${{ product.price }}
         <span>
-            <BUTTON :size="'m'">聯絡我們</BUTTON>
+            <BUTTON :size="'m'" @click.prevent="$emit('add-to-cart',product)">聯絡我們</BUTTON>
         </span>
     </div>
     <hr>
@@ -73,6 +73,7 @@
 <script setup lang="ts">
 import { BriefcaseIcon} from '@heroicons/vue/20/solid';
 import BUTTON from '@/components/form/Button.vue'
+
 const props = defineProps({
     product:{
         type:Object,

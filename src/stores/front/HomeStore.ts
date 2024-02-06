@@ -83,6 +83,15 @@ export const useHomeStore = defineStore('HomeStore', () => {
             })
         )
     }
+    //取得訂單
+    function getOrder(page=1):Observable<any>{
+        const url = `api/${import.meta.env.VITE_APP_PATH}/orders?page=${page}`
+        return apiStore.getRequest(url).pipe(
+            map((res)=>{
+                return res.data
+            })
+        )
+    }
     //添加近我的最愛
     function toggleFavorite(choose:any){
         const foundProduct = favoriteList.value.findIndex((product:any) => {
@@ -149,6 +158,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions,addCart,getCart,sendCart
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions,addCart,getCart,sendCart,getOrder
     }
 })
