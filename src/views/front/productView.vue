@@ -222,7 +222,7 @@ function addToCard(item:any){
     homeSotre.addCart(item.id).subscribe((res)=>{
        if(res){
         console.log(res)
-        router.push('/content')
+        router.push({path: '/content', query:{itemId:item.id}})
        }
     })
 }

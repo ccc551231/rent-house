@@ -1,20 +1,21 @@
 <template>
-    <div class="bg-primary-300 text-center">
-        <div class="max-w-screen-xl mx-auto p-6 ">
-            <div class="text-xl font-bold">商品類別</div>
-            <ul class="flex items-center w-full justify-center my-5 cursor-pointer">
+     <!--商品分類-->
+    <div class="bg-primary-200 text-center">
+        <div class="max-w-screen-xl mx-auto p-6 py-10 ">
+            <div class="text-xl text-primary-800 font-bold ">商品類別</div>
+            <ul class="flex items-center w-full justify-center my-10 cursor-pointer">
                 <template v-for="item in CATEGORY" :key="item">
                     <li
                     @click.prevent="chooseCategory(item)"
-                    :class="{'bg-gray-200': selectedCategory === item}"
-                    class="px-4 "
+                    :class="{'bg-primary-800 text-white': selectedCategory === item}"
+                    class="px-4 rounded"
                     >{{ item }}
                     </li>
                 </template>
             </ul>
-        <hr>
+        <hr class="border-gray-300">
         <div>
-            <div class="text-md  mt-3">最近熱門</div>
+            <div class="text-xl text-primary-800 font-bold my-10">最近熱門</div>
             <div>
                 <swiper
                     :modules="modules"
@@ -72,14 +73,17 @@
         </div>
         </div>
     </div>
+    <!--商品資訊-->
+    <div class="bg-gray-100">
     <div class="max-w-screen-xl mx-auto p-6">
         <div class="mb-4" v-if="tag">
-            <span class="bg-white px-2 py-1 rounded-md mr-2">{{ tag.tagTime }}</span>
-            <span class="bg-white px-2 py-1 rounded-md">{{ tag.tagRule }}</span>
+            <span class="bg-gray-300 px-2 py-1 rounded mr-2">{{ tag.tagTime }}</span>
+            <span class="bg-gray-300 px-2 py-1 rounded">{{ tag.tagRule }}</span>
         </div>
         <GATEGORYCARD :product="Products"></GATEGORYCARD>
     </div>
-    <div class="bg-white text-center">
+    </div>
+     <!--商品類別-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl font-bold">更多類別</div>
             <div class="w-full grid grid-cols-2 gap-5 md:grid-cols-5">
@@ -88,7 +92,6 @@
                 </template>
             </div>
         </div>
-    </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, toRefs, reactive, watch,watchEffect } from 'vue';

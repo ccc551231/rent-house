@@ -124,9 +124,12 @@ import {Field,Form} from 'vee-validate';
 import { useRoute,useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
-
+// const itemId = ref({})
 import * as yup from 'yup';
-const product=ref({})
+const product=ref({});
+const homeSotre = useHomeStore();
+const { itemId } = storeToRefs(homeSotre)
+
 // 預設值
 const initValues = ref({
           name: "",
@@ -141,13 +144,15 @@ const schema = yup.object({
     address: yup.string().required('請輸入地址')
 })
 
-const homeSotre = useHomeStore();
 function getCartProduct(){
     homeSotre.getCart().subscribe((res)=>{
         if(res){
-            product.value=res.data.carts[res.data.carts.length-1].product
+            const findProduct = res.data.carts.filter((item:any)=>{
+                return item.product_id ===itemId.value
+            })
+            console.log(findProduct,res.data.carts)
+            product.value = findProduct[0].product
             console.log(product.value)
-            console.log(res.data.carts)
         }
     })
 }
@@ -166,6 +171,8 @@ function onSubmit(value:any){
     })
 }
 onMounted(()=>{
+    itemId.value = route.query.itemId as string;
+    console.log(itemId.value)
     getCartProduct()
 })
 </script>

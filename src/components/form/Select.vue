@@ -6,7 +6,7 @@
     >
     <ListboxButton
     :id="id"
-    class="relative w-full cursor-pointer rounded-lg border border-neutral-400 text-left bg-white"
+    class="relative w-full cursor-pointer rounded-lg border border-gray-200 text-left bg-white"
     :class="{ 
         'error': !!errorMessage, 'is-disabled': disabled, 'is-focused': isButtonFocused, 
         // 各個 size 按鈕寬度

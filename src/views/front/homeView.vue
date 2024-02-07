@@ -55,7 +55,7 @@
         </div>
         <!-- 熱門租屋 padding-6-->
         <div class="max-w-screen-xl mx-auto p-6 ">
-            <div class="text-xl	font-bold">熱門出租</div>
+            <div class="text-xl	font-bold mt-6 mb-3 text-primary-800">熱門出租</div>
             <div class=" grid grid-cols-1 md:grid-cols-2">
                 <div class="card1 ">
                     <router-link 
@@ -94,7 +94,7 @@
         </div> 
         <!-- 最新租屋-->  
         <div class="max-w-screen-xl mx-auto p-6 ">
-        <div class="text-xl	font-bold">最新出租</div>
+        <div class="text-xl	font-bold mt-6 mb-3 text-primary-800">最新出租</div>
         <swiper
         :modules="modules"
         :navigation="{
@@ -151,10 +151,10 @@
         <!--推薦租屋-->
     <div class="bg-white">
         <div class="max-w-screen-xl mx-auto p-6 ">
-            <div class="text-xl	font-bold">本週推薦出租</div>
+            <div class="text-xl	font-bold mt-6 mb-3 text-primary-800">本週推薦出租</div>
             <div class="grid grid-cols-1 md:grid-cols-8 ">
                 <div 
-                    class="col-span-1 md:col-span-2  md:border-r-[0.5px] border-gray-100 space-y-2 p-4"
+                    class="col-span-1 md:col-span-2  md:border-r-[0.5px] border-gray-400 space-y-2 p-4"
                     >
                     <div>
                         <img
@@ -208,8 +208,8 @@
                             </swiper>
                         </div>
                     </div>
-                    <div class="mt-2">租屋資訊</div>
-                    <div class="border-[0.5px] border-gray-100 p-4 rounded-md group cursor-pointer ">
+                    <div class="mt-2 ">租屋資訊</div>
+                    <div class="border-[0.5px] border-gray-400 p-4 rounded-md group cursor-pointer ">
                         <div class="grid grid-cols-2 space-y-2 ">
                             <div>
                             <div class="flex-row flex">
@@ -250,14 +250,14 @@
         
         <!--租屋類型categoty-->
         <div class="max-w-screen-xl mx-auto p-6 ">
-            <div class="text-xl	font-bold">熱門租房類型</div>
+            <div class="text-xl	font-bold mt-6 mb-3 text-primary-800">熱門租房類型</div>
             <div class="grid grid-cols-1 md:grid-cols-2 text-white">
                 
                 <template 
                 v-for="(item,index) in ['ONE', 'SECAND', 'THREE', 'FOUR']" :key="item"
                 >
                 <router-link
-                :class="index===0 ? 'bg-primary-500':'bg-gray-100'"
+                :class="index===0 ? 'bg-primary-500':'bg-gray-400'"
                 class=" m-2 p-4 rounded-md cursor-pointer hover:bg-primary-500 group"
                 :to="`category/${item}`"
                 >
@@ -289,36 +289,38 @@
             <div
             class="p-2 relative banner">
                 <img 
-                class="w-full h-[200px] "
+                class="w-full h-[200px] rounded-md hidden md:block"
                 src="@/assets/home-banner.svg" alt="">
-                <button class="absolute left-[30px] top-[170px] text-white">聯絡我們 <span class="rounded-full border px-1 py-0.5  ">&#8594;</span></button>
+                <img 
+                class="w-full h-[200px] rounded-md block md:hidden"
+                src="@/assets/home-banner-md.svg" alt="">
             </div>
             <div class="text-center mt-3">
-                <div class="text-xl	font-bold">優質合作企業</div>
+                <div class="text-xl	font-bold mt-10 mb-3 text-primary-800">優質合作企業</div>
                 <!--上面這一段-->
-                <div class="grid grid-cols-2 items-center md:grid-cols-4">
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                <div class="grid grid-cols-2 items-center md:grid-cols-6 gap-5 mt-5">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-1.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-2.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-3.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-4.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-5.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-6.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-7.svg" alt="" class="w-[100px] mx-auto my-auto">
                     </div>
-                    <div class="m-2 border border-primary-500 h-[100px] flex items-center justify-center">
+                    <div class="bg-white  rounded-md h-[100px] flex items-center justify-center">
                     <img src="@/assets/logo/logo-8.svg" alt="" class="w-[150px] mx-auto my-auto">
                     </div>
                 </div>
