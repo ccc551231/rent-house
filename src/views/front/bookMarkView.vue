@@ -58,7 +58,7 @@
 
             <div v-if="iscontent"
             class="grid grid-cols-1 gap-4 md:grid-cols-2" >
-            <template  
+             <template  
                 v-for="item in orders" :key="item.id"
             > 
              <template v-if="Object.keys(item.products).length>0"> 
@@ -73,6 +73,7 @@
                     </template>
                 </template> 
             </template> 
+            
             </div> 
         </div>
     </div>
@@ -82,12 +83,16 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { useHomeStore } from '@/stores/front/HomeStore';
 import PRODUCTFAVORITE from '@/components/front/ProductFavoriteCard.vue'
+import { useRoute,useRouter } from 'vue-router';
 
 const homeSotre = useHomeStore()
 const { favoriteList } = storeToRefs(homeSotre)
 const isFavorite = ref(true);
 const iscontent = ref(false);
 const orders = ref({});
+const route = useRoute();
+
+const { itemId } = storeToRefs(homeSotre)
 
 //轉換收藏
 function toggleFavorite(item:any){
@@ -121,6 +126,7 @@ function choose(item:string){
     })
  }
   onMounted(()=>{
+
     favoriteList
    console.log(favoriteList.value)
    getOrder()

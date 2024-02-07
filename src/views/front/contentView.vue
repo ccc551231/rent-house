@@ -164,9 +164,12 @@ function onSubmit(value:any){
         user:value
     })
     console.log(form.value)
+
     homeSotre.sendCart(form.value).subscribe((res)=>{
         if(res){
             console.log(res)
+            router.push({path: '/bookmark'})
+
         }
     })
 }

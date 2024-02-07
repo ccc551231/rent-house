@@ -12,6 +12,7 @@
         'w-[69px] h-[32px] py-[4px] px-[4px] text-[14px]': size === 's',
         'w-[99px] h-[40px] py-[4px] px-[8px] text-[16px]': size === 'm',
         'w-[335px] h-[48px] py-[8px] px-[12px] text-[18px]': size === 'l',
+
     }"
     class="rounded-md border border-gray-200 px-4 py-1 w-full  focus:transition focus:duration-150 focus:ease-in"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)">
@@ -56,7 +57,7 @@ const props = defineProps({
         default: false
     },
     size: {
-        type: String as PropType<"s" | "m" | "l" | "custom" | undefined>,
+        type: String as PropType<"s" | "m" | "l" | "xl" |"custom" | undefined>,
         default: "s"
     },
 });
