@@ -38,6 +38,8 @@ export const useHomeStore = defineStore('HomeStore', () => {
     const detailProduct:Ref<any> = ref({});
     // 在組建初始化時從本地獲取數據
     const favoriteList = ref(JSON.parse(sessionStorage.getItem('favoriteList')!) || []);
+    //訂單ID
+    const itemId = ref({})
 
     function getProduct(): Observable<any> {
         const url = `api/${import.meta.env.VITE_APP_PATH}/products/all`
@@ -158,6 +160,6 @@ export const useHomeStore = defineStore('HomeStore', () => {
 
     return {
         getProduct, hotProducts, Products, newProducts, recommendProduct, tag,
-        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions,addCart,getCart,sendCart,getOrder
+        getDetailProduct, detailProduct, detailTag, favoriteList,toggleFavorite,record,rolesOptions,addCart,getCart,sendCart,getOrder,itemId
     }
 })

@@ -13,7 +13,7 @@
         'w-[99px] h-[40px] py-[4px] px-[8px] text-[16px]': size === 'm',
         'w-[335px] h-[48px] py-[8px] px-[12px] text-[18px]': size === 'l',
     }"
-    class="rounded-md border border-gray-300 px-4 py-1 w-full focus:border-primary-500 focus:transition focus:duration-150 focus:ease-in"
+    class="rounded-md border border-gray-200 px-4 py-1 w-full  focus:transition focus:duration-150 focus:ease-in"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)">
     <span v-if="!!errorMessage" class="text-[red] ml-1 text-left">{{ errorMessage }}</span>
 </template>
@@ -69,5 +69,8 @@ defineComponent({
 <style lang="scss">
 .error{
   border-color: theme('colors.danger');
+}
+input:focus {
+  outline: none;
 }
 </style>

@@ -61,7 +61,7 @@
             <template  
                 v-for="item in orders" :key="item.id"
             > 
-            <template v-if="Object.keys(item.products).length>0"> 
+             <template v-if="Object.keys(item.products).length>0"> 
                 <template
                 v-for="(obj,index) in Object.keys(item.products)" :key="obj">
                     <PRODUCTFAVORITE
@@ -72,10 +72,9 @@
                     </PRODUCTFAVORITE>
                     </template>
                 </template> 
-            </template>
+            </template> 
             </div> 
         </div>
-        
     </div>
 </template>
 <script setup lang="ts">
