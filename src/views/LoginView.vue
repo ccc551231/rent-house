@@ -1,14 +1,16 @@
 <template>
-<div class="bg-gradient-to-r from-primary-500 to-primary-800 animate-gradient min-h-screen flex items-center">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-    <div></div>
+<div class="bg-gradient-to-r from-primary-300 to-primary-800 animate-gradient min-h-screen flex items-center">
+  <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-1 overflow-hidden">
+    <div class="flex items-center justify-center ">
+      <img src="@/assets/background-2.svg" class="absolute w-2/3 mt-4">
+    </div>
     <Form 
       ref="loginForm" 
-      class=" bg-white px-10 py-10 rounded-md w-[300px]"
+      class=" bg-white px-10 py-10 rounded-md w-[300px]  	z-10"
       :validation-schema="schema"
       :initial-values="initValues"
       @submit="onSubmit($event)">
-      <div class="text-xl font-bold text-primary-500 mb-2 text-center">立即登入</div>
+      <div class="text-xl font-bold text-primary-500 mb-2 text-center ">立即登入</div>
         <div class=" flex flex-wrap gap-x-6 gap-y-6">
                   <div class="w-full">
                     <label class="block text-sm font-medium leading-6 text-gray-900">帳號</label>
