@@ -1,9 +1,6 @@
 <template>
 <div class="bg-gradient-to-r from-primary-300 to-primary-800 animate-gradient min-h-screen flex items-center">
   <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-1 overflow-hidden">
-    <div class="flex items-center justify-center ">
-      <img src="@/assets/background-2.svg" class="absolute w-2/3 mt-4">
-    </div>
     <Form 
       ref="loginForm" 
       class=" bg-white px-10 py-10 rounded-md w-[300px]  	z-10"
@@ -70,7 +67,7 @@ import { onMounted, ref } from 'vue';
 import INPUT from '@/components/form/Input.vue';
 import BUTTON from '@/components/form/Button.vue';
 
-import { useLoginStore } from '@/stores/LoginStore';
+import { useLoginStore } from '@/stores/back/LoginStore';
 import { storeToRefs } from 'pinia';
 import { useRouter, type RouteLocationNormalizedLoaded } from 'vue-router';
 
@@ -83,10 +80,10 @@ const schema = yup.object({
   password: yup.string().required('請輸入密碼')
 });
 const initValues = ref({
-  // username: 'ccc551231@yahoo.com.tw',
-  // password: 'ccc55112',
-  username: '',
-  password: '',
+   username: 'ccc551231@yahoo.com.tw',
+  password: 'ccc55112',
+  // username: '',
+  // password: '',
 });
 function onSubmit(values: any) {
   requestBody.value = JSON.stringify(values);
@@ -95,9 +92,14 @@ function onSubmit(values: any) {
       const token = res.token
       console.log(token)
       sessionStorage.setItem('token', token)
-      router.push({ name: 'product' })
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      //如果存在redirect路徑則會導向，沒有則到默認頁面
+      if(redirect && redirect !== '/login'){
+        router.push(redirect);
+      }else{
+        router.push({ name: 'product' });
+      }
     }
-    
   });
 }
 
@@ -120,3 +122,4 @@ if(loginForm.value){
 onMounted(() => {
 })
 </script>
+@/stores/back/LoginStore@/stores/back/LoginStore

@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Observable, map, of } from 'rxjs';
-import { useApiStore } from './apiStore';
+import { useApiStore } from '@/stores/apiStore';
 //import { API } from '../consts/global.const';
 
 

@@ -100,19 +100,18 @@
                                     />
                                 </Field>
                         </div>
+                        <!-- ============================大圖上傳============================= -->
+
                         <div class="form-control flex flex-col items-start  col-span-full">
-                            <!-- ============================大圖上傳============================= -->
                             <label>選擇首圖</label>
+
                                 <div
                                     id="upload-big"
                                     class="flex flex-col justify-center items-center border border-dashed border-black/30 rounded-md p-10 pb-6 min-h-[263px] w-full"
                                     @click="clickUploadBtn('uploadBigBtn')"
                                 >
-                                <img
-                                    src="@/assets/icon_upload-consent-letter.png"
-                                    alt="icon-upload"
-                                    class="mb-2"
-                                >
+                                <i class="bi bi-arrow-up-circle text-[32px] text-primary-500"></i>
+
                                 <p class="text-sm text-black/50 mb-4">
                                     限上傳PNG檔或JPG檔
                                 </p>
@@ -131,58 +130,55 @@
                                 </div>
                             <!-- ============================多圖============================= -->
                             <div class="form-control flex flex-col items-start overflow-hidden col-span-full">
-                            <label>選擇內文圖</label>
+                                <label>選擇內文圖</label>
+                                <div class="w-full flex flex-wrap justify-center items-center  p-10 pb-6 min-h-[263px]  border border-dashed border-black/30 rounded-md">
                                 <div v-if="initValues && initValues.imagesUrl.length !== 0" 
-                                class="flex flex-wrap justify-center items-center border border-dashed border-black/30 rounded-md p-10 pb-6 min-h-[263px]">
+                                class="w-full"
+                                >
                                     <div
                                     v-for="(image, key) in initValues.imagesUrl" :key="key"
-                                    class="mb-3 p-2 flex items-center justify-between w-full flex-col md:flex-row "
+                                    class="mb-3 p-2 flex items-center justify-between w-full flex-col md:flex-row cursor-pointer"
                                     @click="clickUploadBtn(`uploadSmallBtn${key}`)"
                                     >
                                     <div class="flex flex-col items-center ">
-                                        <img
-                                            src="@/assets/icon_upload-consent-letter.png"
-                                            alt="icon-upload"
-                                            class="mb-2 w-16"
-                                        >
+                                        <i class="bi bi-arrow-up-circle text-[32px] text-primary-500"></i>
                                         <p class="text-sm text-black/50 mb-4">
                                             限上傳PNG檔或JPG檔
                                         </p>
                                         <Input 
                                                 type="file"
                                                 ref="fileRef"
-                                                id="`uploadSmallBtn${key}`"
-                                                @change="uploadMainImg(false, $event)"
+                                                :id="'uploadSmallBtn' + key"
+                                                @change="uploadMainImg(false,$event,key)"
                                                 style="display: none;" >
                                         ></Input>
-                                        <label type="button" for="`uploadSmallBtn${key}`" class="uploadStyle">
+                                        <label type="button"  class="uploadStyle">
                                                 選擇檔案
                                         </label> 
                                     </div>
                                     <div class="flex items-center flex-col md:flex-row ">
                                     <img  :src="image" class="w-60 mr-0 mb-2 md:mr-2 md:mb-0" />
-
-                                        <Button
-                                            class="btn btn-outline-danger"
-                                            :type="'button'"
-                                            :outline="true"
-                                            @click="initValues.imagesUrl.splice(key, 1)"
-                                        >
-                                            刪除
-                                        </Button>
+                                    <i 
+                                    @click="initValues.imagesUrl.splice(key, 1)"
+                                    class="bi bi-x-circle-fill text-primary-800 text-[16px]" ></i>
                                         </div>
                                         
                                     </div>
+                                    
+                                    </div>
+                                <div class="w-full flex justify-center">
+                                        <Button
+                                                :type="'button'"
+                                                class="btn btn-primary"
+                                                @click="createImages"
+                                                :size = "'custom'"
+                                                :width="250"
+                                                >
+                                                + 新增圖片
+                                        </Button>
+                                    </div>
                                 </div>
-                                 <Button
-                                        :type="'button'"
-                                        class="btn btn-primary w-100"
-                                        @click="createImages"
-                                        :size = "'custom'"
-                                        :width="250"
-                                        >
-                                        + 新增圖片
-                                </Button>
+                                
                             <div>
                                 
                             </div>
@@ -205,7 +201,7 @@ import * as yup from 'yup';
 import { computed, defineComponent, onMounted, ref ,toRefs } from 'vue';
 import { storeToRefs } from 'pinia';
 import { CRUD_CONFIG } from '@/consts/global.const'
-import { useBackProductStore } from '@/stores/BackProductStore';
+import { useBackProductStore } from '@/stores/back/BackProductStore';
 import { Field, Form } from 'vee-validate';
 import INPUT from '@/components/form/Input.vue'
 import TOGGLE from "@/components/form/Toggle.vue";
@@ -284,7 +280,7 @@ function clickUploadBtn(id: string) {
         btn.click();
     }
 }
-function uploadMainImg(isMain: boolean, e: any) {
+function uploadMainImg(isMain: boolean, e: any, key?: number) {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file-to-upload', file);    
@@ -293,7 +289,8 @@ function uploadMainImg(isMain: boolean, e: any) {
             initValues.value.imageUrl = res.imageUrl
             console.log(initValues.value.imageUrl)
         } else {
-            initValues.value.imagesUrl[initValues.value.imagesUrl.length - 1] = res.imageUrl
+            initValues.value.imagesUrl[key] = res.imageUrl;
+            // initValues.value.imagesUrl[initValues.value.imagesUrl.length - 1] = res.imageUrl
             console.log(initValues.value.imagesUrl)
         }
     })
@@ -357,4 +354,4 @@ defineComponent({
 .uploadStyle {
     /* label的樣式 */
 }
-</style>
+</style>@/stores/back/BackProductStore

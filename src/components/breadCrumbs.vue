@@ -8,7 +8,7 @@
     </ol>
   </nav>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 

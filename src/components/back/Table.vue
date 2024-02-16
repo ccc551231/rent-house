@@ -1,6 +1,6 @@
 <template>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                    <thead class="text-xs text-gray-700 bg-primary-500 text-white uppercase bg-gray-50 ">
                         <tr>
                             <th  scope="col" class="px-6 py-3 whitespace-nowrap " v-for="column in columns" :key="column.field" :class="{ 'text-center': column.title === '功能' }">
                                 {{ column.title }}
@@ -8,9 +8,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  v-for="item, idx in data" :key="item.id" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 " >
+                        <tr  v-for="item, idx in data" :key="item.id" class="odd:bg-white even:bg-primary-200 border-b " >
                             <td class="px-6 py-4"  v-for="column in columns" :key="column.field" :class="{ 'text-center': column.title === '功能' }">
-                                <span v-if="!!column.useSlot" >
+                                <span v-if="!!column.useSlot" class="whitespace-nowrap">
                                     <slot :name="column.field" :item="item"></slot>
                                 </span>
                                 <span v-else-if="item[column.field]">
@@ -27,7 +27,7 @@
                 </table>
 </template>
 <script setup lang="ts">
-import { useBackProductStore } from '@/stores/BackProductStore';
+import { useBackProductStore } from '@/stores/back/BackProductStore';
 import { storeToRefs } from 'pinia';
 const productStore = useBackProductStore()
 const { pagination, products } = storeToRefs(productStore);

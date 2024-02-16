@@ -1,5 +1,5 @@
 <template>
-    <header>
+        <header>
         <nav class="bg-primary-500 border-gray-200 dark:bg-gray-900">
           <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <router-link  
@@ -40,34 +40,11 @@
           </div>
         </nav>
     </header>
-    <div class="bg-gray-200">
-        <RouterView />
-    </div>
-    <footer class="bg-primary-800 text-center text-white">
-      <div 
-      class="max-w-screen-xl mx-auto p-6 py-10 grid grid-cols-1 items-center sm:grid-cols-2">
-        <div class="flex justify-center sm:justify-start">
-          <img src="@/assets/logo.svg">
-        </div>
-        <div class="text-center mt-4 sm:text-right sm:mt-0 ">
-          <router-link 
-          :class="{'active-footer':$route.path === '/search'}"
-          :to="`search`" class="mr-4"
-          >收尋租屋</router-link>
-          <router-link 
-          :class="{'active-footer':$route.path === '/bookmark'}"
-          :to="`bookmark`" class="mr-4">我的收藏</router-link>
-          <router-link :to="`login`" class="">後台登入</router-link>
-        </div>
-      </div>
-      <hr class="font-white  border-white">
-        <div class="py-4">© 2023 Miao.design</div>
-    </footer>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia';
-import { useBackNavStore } from '@/stores/BackNavStore';
+import { useBackNavStore } from '@/stores/back/BackNavStore';
 const navStore = useBackNavStore()
 const isNavbarOpen = ref(true);
 const toggleNavbar = () => {
@@ -86,7 +63,7 @@ onMounted(() => {
 })
 </script>
 <style>
-.active{
+    .active{
   color: #2B94A1
 }
 .active-footer{

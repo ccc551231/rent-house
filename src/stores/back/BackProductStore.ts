@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { Observable, map, of } from 'rxjs';
-import { useApiStore } from './apiStore';
+import { useApiStore } from '../apiStore';
 import { CRUD_CONFIG } from '@/consts/global.const';
 
 export const useBackProductStore = defineStore('backProduct', () => {
@@ -9,6 +9,9 @@ export const useBackProductStore = defineStore('backProduct', () => {
     const products = ref();
     const selectedProduct = ref();
     const pagination = ref();
+    const orders = ref();
+    const ordersPadination = ref({})
+    const orderUserData=ref({})
     const formType = ref(CRUD_CONFIG.CREATE)
     function getProduct(page=1): Observable<any>{
         const url = `api/${import.meta.env.VITE_APP_PATH}/admin/products/?page=${page}`
@@ -41,7 +44,25 @@ export const useBackProductStore = defineStore('backProduct', () => {
             return res.data
         }))
     }
-    return {
-        getProduct, products, selectedProduct, formType, pagination, createProduct, updateProduct, uploadImage
+    function deleteProduct(item:any):Observable<any>{
+        const url=`api/${import.meta.env.VITE_APP_PATH}/admin/product/${item.id}`
+        return apiStore.deleteRequest(url).pipe(
+            map((res)=>{
+                return res.data
+            })
+        )
     }
+    //order頁面
+    function getOrder(page=1):Observable<any>{
+        const url = `api/${import.meta.env.VITE_APP_PATH}/admin/orders/?page=${page}`
+        return apiStore.getRequest(url).pipe(
+            map((res) => {
+                return res.data
+            })
+        )
+    }
+    return {
+        getProduct, products, selectedProduct, formType, pagination, createProduct, updateProduct, uploadImage,deleteProduct,orders,getOrder,ordersPadination,orderUserData
+    }
+    
 })

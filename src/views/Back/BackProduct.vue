@@ -1,9 +1,9 @@
 <template>
-    <section class="bg-primary-300 ">
+    <section>
          <div class="max-w-screen-xl  item-center mx-auto">
             <div class="flex justify-between">
                 <BREADCRUMBS></BREADCRUMBS>
-                <button @click="onPositiveClick(CRUD_CONFIG.CREATE)">新增</button>
+                <Button @click="onPositiveClick(CRUD_CONFIG.CREATE)">新增</Button>
             </div>
             
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg m-10">
@@ -12,8 +12,8 @@
                         <span>{{ item.is_enabled ? "啟用" : "停用" }}</span>
                     </template>
                 <template  #Function="{ item }" >
-                    <Button @click="onPositiveClick(CRUD_CONFIG.UPDATE,item)" :type="'button'" :outline="true" :size="s" class="mr-0 xl:mr-2">編輯</Button>
-                    <Button @click="onPositiveClick(CRUD_CONFIG.DELETE,item)" :type="'submit'" :size="s">刪除</Button>
+                    <Button @click="onPositiveClick(CRUD_CONFIG.UPDATE,item)" :type="'button'" :outline="true" :size="'s'" class="mr-2">編輯</Button>
+                    <Button @click="onPositiveClick(CRUD_CONFIG.DELETE,item)" :type="'submit'" :size="'s'">刪除</Button>
                 </template> 
             </Table>
         </div>
@@ -25,13 +25,13 @@
 <script setup lang="ts">
 import BREADCRUMBS from '@/components/breadCrumbs.vue'
 import { useRoute } from 'vue-router';
-import Table from '@/components/Table.vue'
-import { useBackProductStore } from '@/stores/BackProductStore';
+import Table from '@/components/back/Table.vue'
+import { useBackProductStore } from '@/stores/back/BackProductStore';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { CRUD_CONFIG } from '@/consts/global.const';
 import Pagination from '@/components/Pagination.vue'
-import ProductForm from '@/components/ProductForm.vue'
+import ProductForm from '@/components/back/ProductForm.vue'
 import Button from "@/components/form/Button.vue";
 
 
@@ -83,6 +83,7 @@ function onPositiveClick(type: CRUD_CONFIG, item: any) {
     console.log(selectedProduct.value)
     switch (type) {
         case CRUD_CONFIG.DELETE:
+        deleteProduct(selectedProduct.value)
             break;
         case CRUD_CONFIG.CREATE:
         case CRUD_CONFIG.UPDATE:
@@ -93,8 +94,17 @@ function onPositiveClick(type: CRUD_CONFIG, item: any) {
             break
     }
 }
-function getAllProduct(page) {
+function deleteProduct(item:any){
+    productStore.deleteProduct(item).subscribe((res)=>{
+        if(res){
+            console.log(res)
+            getAllProduct()
+        }
+    })
     
+    
+}
+function getAllProduct(page=1) {
     productStore.getProduct(page).subscribe((res) => {
         if (res) {
             console.log(products.value)

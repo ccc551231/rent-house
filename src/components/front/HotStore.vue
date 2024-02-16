@@ -14,7 +14,7 @@
         :class="[sortHotStore.isFavorite? 'bi-bookmark-fill':'bi-bookmark']"
         ></i> 
     </div>
-    </div>    
+    </div>   
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';

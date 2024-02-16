@@ -443,11 +443,11 @@ function newProduct() {
 //推薦租屋
 function recommend() {
     const foundProduct = Products.value.find(product => 
-        product.title === '信義安和六張犁台北醫學大學獨立陽台'
+        product.title === '台北全新透天'
     )
     if (foundProduct) {
         recommendProduct.value = foundProduct;
-        console.log(recommendProduct.value)
+        console.log('111',recommendProduct.value)
     }
 }
 const productImg= ref(null);

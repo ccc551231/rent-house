@@ -1,6 +1,6 @@
 <template>
     <router-link
-    :to="`product-list/product/${productList.id}`"
+    :to="`/product-list/product/${productList.id}`"
     v-if="productList" 
     @click.prevent="$emit('selectProduct',productList)"
     class="border-b-4 border-primary-500 cursor-pointer  mt-4  bg-white rounded-md p-4  grid grid-cols-5 relative items-center"
