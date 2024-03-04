@@ -86,9 +86,8 @@ import PRODUCTFAVORITE from '@/components/front/ProductFavoriteCard.vue'
 import { useRoute,useRouter } from 'vue-router';
 
 const homeSotre = useHomeStore()
-const { favoriteList } = storeToRefs(homeSotre)
-const isFavorite = ref(true);
-const iscontent = ref(false);
+const { favoriteList,isFavorite,iscontent } = storeToRefs(homeSotre)
+
 const orders = ref({});
 const route = useRoute();
 

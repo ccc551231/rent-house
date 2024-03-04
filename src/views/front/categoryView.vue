@@ -86,9 +86,14 @@
      <!--商品類別-->
         <div class="max-w-screen-xl mx-auto p-6 ">
             <div class="text-xl font-bold">更多類別</div>
-            <div class="w-full grid grid-cols-2 gap-5 md:grid-cols-5">
+            <div class="w-full grid grid-cols-2 gap-5 md:grid-cols-5 mt-3">
                 <template v-for="item in CATEGORY" :key="item">
-                    <a href="#" @click.prevent="chooseCategory(item)" class="bg-primary-500">{{ item }}</a>
+                <a href="#" 
+                    @click.prevent="chooseCategory(item)" 
+                    class=" h-[100px] rounded relative flex items-center justify-center md:h-[130px]">
+                    <div class="absolute z-100 font-bold">{{ item }}</div>
+                    <div class="bg-no-repeat bg-cover rounded-md bg-center absolute h-full w-full opacity-30 -z-1 hover:opacity-50" :style="{ backgroundImage: getCategoryBackground(item) }"></div>
+                </a>
                 </template>
             </div>
         </div>
@@ -120,7 +125,22 @@ const onSlideChange = () => {
 };
 const allProduct = ref([])
 const selectedCategory = ref(null);
-
+function getCategoryBackground(item:string) {
+  switch (item) {
+    case '公寓':
+    return 'url(/src/assets/class-apartment.svg)';
+    case '電梯大樓':
+    return 'url(/src/assets/class-building.svg)';
+    case '透天':
+    return 'url(/src/assets/class-house.svg)';
+    case '別墅':
+    return 'url(/src/assets/class-villa.svg)';
+    case '全部':
+      return 'url(/src/assets/class-all.svg)';
+    default:
+      return 'url(/src/assets/category_pic.svg)';
+  }
+}
 function product(){
     homeSotre.getProduct().subscribe((res)=>{
         if(res){
@@ -187,8 +207,11 @@ watch(
   },
   { deep: true } // 使用 deep 选项进行深度监听
 )
-
-
+//分類間變色
+const colors= ref(['bg-primary-500','bg-primary-200','bg-primary-100','bg-primary-800'])
+function getRandomColor() {
+      return colors.value[Math.floor(Math.random() * colors.value.length)];
+    }
 onMounted(()=>{
     selectedCategory.value = CATEGORY[category]
     console.log( selectedCategory.value)
@@ -203,5 +226,60 @@ onMounted(()=>{
 }
 .favoriteClass{
     background-color: red;
+}
+.categotyONE::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/category_pic.svg'); /* 使用相对路径 */
+  opacity: 0.3;
+  
+}
+.categotySECAND::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/category_pic.svg'); /* 使用相对路径 */
+  opacity: 0.3;
+  
+}
+.categotyTHREE::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/category_pic.svg'); /* 使用相对路径 */
+  opacity: 0.3;
+  
+}
+.categotyFOUR::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/category_pic.svg'); /* 使用相对路径 */
+  opacity: 0.3;
+  
+}
+.categotyFIVE::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/category_pic.svg'); /* 使用相对路径 */
+  opacity: 0.3;
+  
 }
 </style>

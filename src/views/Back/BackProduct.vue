@@ -1,5 +1,6 @@
 <template>
     <section>
+        <Loading :active="isLoading"></Loading>
          <div class="max-w-screen-xl  item-center mx-auto">
             <div class="flex justify-between">
                 <BREADCRUMBS></BREADCRUMBS>
@@ -37,7 +38,7 @@ import Button from "@/components/form/Button.vue";
 
 const route = useRoute();
 const productStore = useBackProductStore()
-const { products, selectedProduct, formType, pagination } = storeToRefs(productStore)
+const { products, selectedProduct, formType, pagination,isLoading } = storeToRefs(productStore)
 const column = [
     {
         title: "序號",
@@ -77,7 +78,6 @@ const column = [
 
 ]
 const showFormModal = ref(false);
-
 function onPositiveClick(type: CRUD_CONFIG, item: any) {
     selectedProduct.value = item
     console.log(selectedProduct.value)
@@ -105,8 +105,10 @@ function deleteProduct(item:any){
     
 }
 function getAllProduct(page=1) {
+    isLoading.value=true
     productStore.getProduct(page).subscribe((res) => {
         if (res) {
+            isLoading.value=false
             console.log(products.value)
             products.value = res.products
             pagination.value = res.pagination            

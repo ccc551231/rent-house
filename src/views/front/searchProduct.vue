@@ -1,5 +1,6 @@
 <template>
 <div class="max-w-screen-xl mx-auto p-6">
+    <Loading :active="isLoading"></Loading>
     <div class="bg-white rounded-md p-4 flex items-center flex-wrap">
     <div class="w-full">搜尋條件</div>
     <Form 
@@ -59,8 +60,7 @@
     </div>
     </Form>
     </div>
-    <BREADCRUMBS></BREADCRUMBS>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 relative" >
         <div class="col-span-1 mr-2 ">
             <span v-for="product in newProduct" :key="product.id">
             <PRODUCTCARD 
@@ -74,11 +74,13 @@
             <PRODUCTDETAILCARD 
             v-if="selected" :product="selected" @openModel="openModel" @addToCart="addToCard"></PRODUCTDETAILCARD>
         </div>
+        <!--沒有搜尋到產品-->
         <div v-if="newProduct.length === 0" class="absolute pt-10 w-full flex justify-center text-xl">
             <i class="bi bi-search mr-2 "></i>
             <div>沒有搜尋到商品</div>
         </div>
     </div>
+    
     <PRODUCTIMG ref="productImg" :getImgs="getImgs"></PRODUCTIMG>
     <!-- <div v-for="product in newProduct" :key="product.id">{{ product.title }}</div> -->
 </div>
@@ -107,7 +109,7 @@ const initValues = ref({
 const schema = yup.object({
 })
 const homeSotre = useHomeStore()
-const {  Products,favoriteList,rolesOptions } = storeToRefs(homeSotre)
+const {  Products,favoriteList,rolesOptions,isLoading } = storeToRefs(homeSotre)
 const newProduct = ref([]);
 const selected = ref({});
 
@@ -140,8 +142,10 @@ function onSubmit(value:any){
 
 //取的所有資料
 function productsList() {
+    isLoading.value=true
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
+            isLoading.value=false
             //過濾所有product在favorieList內的都要加上isFavorite:true
             Products.value = res.products.map((product: any) => {
                 let foundFavorite = favoriteList.value.some((favorite: any) => favorite.id === product.id);
@@ -156,7 +160,6 @@ function productsList() {
                 console.log(newProduct.value)
             }
             else{
-                console.log('2')
                 newProduct.value = Products.value
                 selected.value=newProduct.value[0]
                 // selected.value = newProduct.value[0]

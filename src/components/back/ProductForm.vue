@@ -19,7 +19,7 @@
                     @submit="onSubmit($event)">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-10">
                         <div class="form-control flex flex-col items-start">
-                            <label>產品名稱</label>
+                            <label>物件名稱</label>
                             <Field 
                             id="title" 
                             v-slot="{ field , value , errorMessage }" 
@@ -32,7 +32,7 @@
                             </Field>
                         </div>
                         <div class="form-control flex flex-col items-start">
-                                <label>產品類別</label>
+                                <label>居住縣市</label>
                                 <Field v-slot="{ field, value, errorMessage }" name="category">
                                     <INPUT 
                                         v-bind="field"
@@ -42,7 +42,7 @@
                                 </Field>
                         </div>
                         <div class="form-control flex flex-col items-start">
-                                    <label>產品單位</label>
+                                    <label>類別</label>
                                     <Field v-slot="{ field, value, errorMessage }" name="unit">
                                         <INPUT 
                                             v-bind="field"
@@ -52,7 +52,7 @@
                                     </Field>
                             </div>
                         <div class="form-control flex flex-col items-start">
-                                    <label>產品價格</label>
+                                    <label>月租費</label>
                                     <Field v-slot="{ field, value, errorMessage }" name="price">
                                         <INPUT 
                                             v-bind="field"
@@ -62,7 +62,7 @@
                                     </Field>
                         </div>
                         <div class="form-control flex flex-col items-start">
-                                        <label>產品原價</label>
+                                        <label>聯絡電話</label>
                                         <Field v-slot="{ field, value, errorMessage }" name="origin_price">
                                             <INPUT 
                                                 v-bind="field"
@@ -72,7 +72,7 @@
                                         </Field>
                             </div>
                         <div class="form-control flex flex-col items-start">
-                            <label>產品說明</label>
+                            <label>物件說明</label>
                             <Field v-slot="{ field, value, errorMessage }" name="content">
                             <INPUT 
                                 v-bind="field"
@@ -82,7 +82,7 @@
                             </Field>
                         </div>
                         <div class="form-control flex flex-col items-start">
-                                <label>產品描述</label>
+                                <label>物件描述</label>
                                 <Field v-slot="{ field, value, errorMessage }" name="description">
                                 <INPUT 
                                     v-bind="field"
@@ -177,10 +177,8 @@
                                                 + 新增圖片
                                         </Button>
                                     </div>
-                                </div>
-                                
+                                </div>  
                             <div>
-                                
                             </div>
                         </div>
                     </div>
@@ -221,10 +219,10 @@ function cancelClick() {
 }
 //表單驗證
 const schema = yup.object({
-    title: yup.string().required('請輸入產品名稱'),
-    category: yup.string().required('請輸入產品類別'),
-    price: yup.number().required('請輸入產品價格'),
-    origin_price: yup.number().required('請輸入產品原價'),
+    title: yup.string().typeError('請輸入產品名稱').required('請輸入產品名稱'),
+    category: yup.string().typeError('請輸入產品類別').required('請輸入產品類別'),
+    price: yup.number().typeError('請輸入每月租費').required('請輸入每月租費'),
+    origin_price: yup.number().typeError('請輸入聯絡電話').required('請輸入聯絡電話'),
 })
 
 const initValues =ref({
@@ -232,7 +230,7 @@ const initValues =ref({
     category: selectedProduct.value?.category ?? '',
     unit: selectedProduct.value?.unit ?? '個',
     price: selectedProduct.value?.price ?? 0,
-    origin_price: selectedProduct.value?.origin_pric ?? 0,
+    origin_price: selectedProduct.value?.origin_price ?? 0,
     is_enabled: selectedProduct.value?.is_enabled ?? false,
     content: selectedProduct.value?.content ?? '',
     description: selectedProduct.value?.description ?? '',
@@ -354,4 +352,4 @@ defineComponent({
 .uploadStyle {
     /* label的樣式 */
 }
-</style>@/stores/back/BackProductStore
+</style>

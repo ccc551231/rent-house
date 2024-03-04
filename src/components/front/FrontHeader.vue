@@ -44,8 +44,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia';
-import { useBackNavStore } from '@/stores/back/BackNavStore';
-const navStore = useBackNavStore()
+import { useBackProductStore } from '@/stores/back/BackProductStore';
+const backStore = useBackProductStore()
 const isNavbarOpen = ref(true);
 const toggleNavbar = () => {
     isNavbarOpen.value = !isNavbarOpen.value;
@@ -57,7 +57,7 @@ watchEffect(() => {
     }
 });
 onMounted(() => {
-    navStore.checkProduct().subscribe((res) => {
+  backStore.checkProduct().subscribe((res) => {
         console.log(res)
     })
 })

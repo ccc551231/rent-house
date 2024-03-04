@@ -1,5 +1,6 @@
 <template>
     <div class="min-w-screen-xl">
+        <Loading :active="isLoading"></Loading>
         <!-- 搜尋banner背景顏色 -->
         <div class="bg-gradient-to-r from-primary-500 to-primary-800 animate-gradient">
         <!-- 搜尋banner padding-6-->
@@ -360,10 +361,12 @@ import 'swiper/css/scrollbar';
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay];
 
 const homeSotre = useHomeStore()
-const { hotProducts, Products, newProducts, recommendProduct,favoriteList,rolesOptions } = storeToRefs(homeSotre)
+const { hotProducts, Products, newProducts, recommendProduct,favoriteList,rolesOptions,isLoading } = storeToRefs(homeSotre)
 function productsList() {
+    isLoading.value = true
     homeSotre.getProduct().subscribe((res) => {
         if (res) {
+            isLoading.value = false
             Products.value = res.products
             // Products.value = res.products.map((product: any) => ({
             //     ...product

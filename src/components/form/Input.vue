@@ -2,10 +2,11 @@
     <input 
     :type="type" name="" 
     :value="modelValue" 
-    :placeholder="placeholder" 
+    :placeholder="placeholder " 
     :maxlength="maxlength" 
     :disabled="disabled"
     :autocomplete="autocomplete"
+    
     :class="{
         'error':!!errorMessage,'{bg-gray-300}': disabled,
         // 各個 size 按鈕寬度

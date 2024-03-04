@@ -16,7 +16,7 @@
         </div>
         <div class="absolute right-3 top-3">
         <div>
-        <i 
+        <i v-if="!iscontent"
         @click.prevent="$emit('toggle-favorite',productList)"
         class=" cursor-pointer bi bi-bookmark-fill text-gray-500 border-[0.5px] border-gray-500 p-2 rounded-full"
         :class="[productList.isFavorite? 'bi-bookmark-fill':'bi-bookmark']"
@@ -26,6 +26,11 @@
     </router-link>
 </template>
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useHomeStore } from '@/stores/front/HomeStore';
+const homeSotre = useHomeStore()
+const { isFavorite,iscontent } = storeToRefs(homeSotre)
+
 const props = defineProps({
     productList:{
         type:Object,

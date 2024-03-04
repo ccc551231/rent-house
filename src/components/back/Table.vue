@@ -16,11 +16,11 @@
                                 <span v-else-if="item[column.field]">
                                  {{ item[column.field] }}
                                 </span>
-                                <span v-else-if="column.field==='Index'">
-                                    {{
-                                        ((pagination.current_page - 1
-                                         ) * itemsPerPage)+idx + 1}}
-                                </span>
+                                    <span v-else-if="pagination&&column.field==='Index'">
+                                        {{
+                                            ((pagination.current_page - 1
+                                            ) * itemsPerPage)+idx + 1}}
+                                    </span>
                             </td>
                         </tr>
                     </tbody>
