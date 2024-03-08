@@ -26,7 +26,6 @@ export default {
       'success': '#78B862',
       'white': '#fff',
       'black': '#000',
-      'red': '#000'
     },
   },
   plugins: [],
