@@ -70,7 +70,7 @@
             :productList="product" @toggle-favorite="toggleFavorite" @selectProduct="selectProduct"></PRODUCTCARD>
             </span>
         </div>
-        <div  class="hidden md:block col-span-1 sticky top-4 h-[52rem] overflow-y-auto mt-4 rounded-md">
+        <div  class="hidden md:block col-span-1 sticky top-4  overflow-y-auto mt-4 rounded-md">
             <PRODUCTDETAILCARD 
             v-if="selected" :product="selected" @openModel="openModel" @addToCart="addToCard"></PRODUCTDETAILCARD>
         </div>

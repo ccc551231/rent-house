@@ -6,7 +6,7 @@
     >
         <div>
         <div class="text-sm inline-block  bg-gray-300 px-1 rounded-sm mb-2">{{ productList.unit }}</div>
-        <img :src="productList.imageUrl" class="w-[150px] " alt="">
+        <img :src="productList.imageUrl" class="w-full h-full " alt="">
         </div>
         <div class="ms-4 flex flex-col col-span-3 h-full">
             <div class="">{{ productList.title }}</div>

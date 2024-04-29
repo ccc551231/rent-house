@@ -65,7 +65,7 @@
                     >
                     <HOTSTORE 
                     class=" flex-auto m-2 min-h-[150px] md:min-h-[318px] rounded-md"  
-                    :sortHotStore="hotProducts[0]"
+                    :sortHotStore="hotProducts[5]"
                     @toggle-favorite="toggleFavorite"
                     >
                     </HOTSTORE>

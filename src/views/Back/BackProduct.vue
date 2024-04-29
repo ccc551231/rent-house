@@ -45,7 +45,7 @@ const column = [
         field: "Index",
     },
     {
-        title: "產品類別",
+        title: "地區",
         field: "category"
     },
     {
@@ -53,8 +53,8 @@ const column = [
         field: "title"
     },
     {
-        title: "產品數量",
-        field: "num"
+        title: "產品類別",
+        field: "unit"
     },
     {
         title: "產品價格",
@@ -111,9 +111,9 @@ function getAllProduct(page=1) {
             isLoading.value=false
             console.log(products.value)
             products.value = res.products
-            pagination.value = res.pagination            
+            pagination.value = res.pagination 
+            console.log('products:',products.value)           
         }
-
     })
 }
 function closeModal(type: string) {

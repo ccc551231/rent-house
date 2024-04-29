@@ -9,7 +9,7 @@
         @click.prevent="preImg"
         class="text-white w-[20px] "></ArrowLeftIcon>
         </button>
-        <img class="z-999 max-w-[50%]" :src="getImgs[nowNumber]" alt="">
+        <img class="z-999 w-full h-full" :src="getImgs[nowNumber]" alt="">
         <button 
         @click.prevent="nextImg"
         class="rounded-full p-2 bg-gray-600 cursor-pointer ml-4">

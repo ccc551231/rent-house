@@ -1,10 +1,10 @@
 <template>
     <div class="bg-white p-4 ">
     <div class="grid grid-cols-2 ">
-        <img :src="product.imageUrl" alt="" class="max-h-[200px] ">
+        <img :src="product.imageUrl" alt="" class="h-full w-full">
         <div class="grid grid-cols-2 ml-2">
         <span  v-for="(item, index) in product.imagesUrl" :key="index"  @click.prevent="$emit('open-model',product.imagesUrl)">
-            <img v-if="index<4" :src="item" class="max-h-[100px] " alt="">
+            <img v-if="index<4" :src="item" class="h-full w-full" alt="">
         </span>
         </div>
     </div>
