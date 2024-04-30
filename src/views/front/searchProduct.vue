@@ -40,7 +40,6 @@
         :options="rolesOptions"
         :placeholder="'請選擇角色'"
         :error-message="errorMessage"
-        @update:model-value="handleSelectChange"
         :size="'m'"
         /> 
         </Field> 
@@ -99,6 +98,7 @@ import PRODUCTDETAILCARD from '@/components/front/productDetailCard.vue'
 import PRODUCTIMG from '@/components/front/ProductImg.vue'
 import BREADCRUMBS from '@/components/breadCrumbs.vue'
 import { useRoute,useRouter} from 'vue-router'
+
 const route = useRoute()
 const router = useRouter()
   // 預設值
@@ -110,7 +110,7 @@ const schema = yup.object({
 })
 const homeSotre = useHomeStore()
 const {  Products,favoriteList,rolesOptions,isLoading } = storeToRefs(homeSotre)
-const newProduct = ref([]);
+const newProduct:any = ref([]);
 const selected = ref({});
 
 
@@ -188,8 +188,8 @@ function toggleFavorite(item:any){
 function isSelectedProduct(product:any) {
     return selected.value === product;
 }
-const productImg= ref(null);
-const getImgs = ref([])
+const productImg:any= ref(null);
+const getImgs:any = ref([])
 //打開子元件照片牆
 function openModel(product:any){
     if (productImg.value !== null) {
@@ -212,7 +212,7 @@ onMounted(() => {
     productsList()
     console.log(favoriteList.value)
     console.log(route,router)
-    const queryParams =  router.currentRoute.value.query;
+    const queryParams:any =  router.currentRoute.value.query;
     if ('data' in queryParams) {
     // 解析 'data' 查詢參數並設置到 searchData
     searchData.value = JSON.parse(queryParams.data);

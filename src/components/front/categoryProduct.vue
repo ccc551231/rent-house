@@ -25,9 +25,11 @@
     </div>
 </template>
 <script setup lang="ts">
+import type { ProductIner } from '@/interface/front.interface';
+
 const props = defineProps({
     product:{
-        type:[],
+        type:Array as ()=>ProductIner[],
         required: true
 
     }

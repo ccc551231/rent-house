@@ -13,7 +13,7 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const breadcrumbList = ref([])
+const breadcrumbList:any = ref([])
 
 const isHome = () => {
   return route.name === 'home'

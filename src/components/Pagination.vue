@@ -24,6 +24,7 @@
       </ul>
     </nav>
 </template>
+
 <script setup lang="ts">
 const emits = defineEmits(['updatePage'])
 const props = defineProps({

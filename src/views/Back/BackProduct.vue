@@ -78,7 +78,7 @@ const column = [
 
 ]
 const showFormModal = ref(false);
-function onPositiveClick(type: CRUD_CONFIG, item: any) {
+function onPositiveClick(type: CRUD_CONFIG, item?: any) {
     selectedProduct.value = item
     console.log(selectedProduct.value)
     switch (type) {
@@ -122,9 +122,9 @@ function closeModal(type: string) {
         case 'formModal':
             showFormModal.value = false;
             break;
-        case 'modal':
-            showModal.value = false;
-            break;
+        // case 'modal':
+        //     showModal.value = false;
+        //     break;
     }
 }
 function onPageClick(){

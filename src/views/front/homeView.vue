@@ -345,7 +345,7 @@ import SELECT from '@/components/form/Select.vue';
 import * as yup from 'yup';
 import PRODUCTIMG from '@/components/front/ProductImg.vue'
 
-import { useRouter, Router } from 'vue-router';
+import { useRouter, type Router } from 'vue-router';
 const router: Router = useRouter();
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y , Autoplay } from 'swiper/modules';
@@ -453,7 +453,7 @@ function recommend() {
         console.log('111',recommendProduct.value)
     }
 }
-const productImg= ref(null);
+const productImg:any= ref(null);
 const getImgs = ref([])
 //打開子元件照片牆
 function openModel(product:any){

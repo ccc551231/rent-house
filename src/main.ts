@@ -17,5 +17,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(VueAxios, axios)
+// eslint-disable-next-line vue/multi-word-component-names
 app.component('Loading',Loading);
 app.mount('#app')

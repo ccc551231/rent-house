@@ -165,7 +165,7 @@ function chooseCategory(item:any){
     selectedCategory.value = item
     console.log(selectedCategory.value)
     if(item!== '全部'){
-        Products.value= allProduct.value.filter((product)=>{
+        Products.value= allProduct.value.filter((product:any)=>{
         return product.unit === item
     }) 
     }
@@ -177,7 +177,7 @@ function toggleFavorite(item:any){
     homeSotre.toggleFavorite(item)
 }
 //判斷屬性tag
-const tag = ref(null);
+const tag:any = ref(null);
 function getTagTime(category: any) {
     switch (category) {
         case CATEGORY.ONE:

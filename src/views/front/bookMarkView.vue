@@ -88,7 +88,7 @@ import { useRoute,useRouter } from 'vue-router';
 const homeSotre = useHomeStore()
 const { favoriteList,isFavorite,iscontent } = storeToRefs(homeSotre)
 
-const orders = ref({});
+const orders:any = ref({});
 const route = useRoute();
 
 const { itemId } = storeToRefs(homeSotre)

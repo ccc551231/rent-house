@@ -33,7 +33,7 @@ const nowNumber = ref(0)
 const isShow = ref(false);
 const props = defineProps({
     getImgs:{
-        type:array,
+        type:array as ()=>any,
         required:true
     }
 })
