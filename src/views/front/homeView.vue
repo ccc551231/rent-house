@@ -466,7 +466,7 @@ function openModel(product:any){
 onMounted(() => {
     productsList()
     newProduct()
-    console.log('測試')
+    console.log(import.meta.env.VITE_TEXT)
 })
 </script>
 <style>
