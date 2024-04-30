@@ -4,9 +4,10 @@
             <hr>
 </template>
 <script setup lang="ts">
+
 const props = defineProps({
     recordProduct:{
-        type: [],
+        type: Object as () => any ,
         required: true
     }
 })

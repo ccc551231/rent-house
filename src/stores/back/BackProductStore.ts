@@ -6,16 +6,16 @@ import { CRUD_CONFIG } from '@/consts/global.const';
 
 export const useBackProductStore = defineStore('backProduct', () => {
     const apiStore = useApiStore();
-    const products = ref();
-    const selectedProduct = ref();
-    const pagination = ref();
-    const orders = ref();
-    const ordersPagination = ref({})
-    const orderUserData=ref({})
-    const formType = ref(CRUD_CONFIG.CREATE)
-    const formOrderType=ref(CRUD_CONFIG.CREATE)
+    const products:any = ref();
+    const selectedProduct:any = ref();
+    const pagination:any = ref();
+    const orders:any = ref();
+    const ordersPagination:any = ref({})
+    const orderUserData:any=ref({})
+    const formType:any = ref(CRUD_CONFIG.CREATE)
+    const formOrderType:any=ref(CRUD_CONFIG.CREATE)
     //Loading
-    const isLoading = ref(false)
+    const isLoading:any = ref(false)
     //商品頁
     function getProduct(page=1): Observable<any>{
         const url = `api/${import.meta.env.VITE_APP_PATH}/admin/products/?page=${page}`

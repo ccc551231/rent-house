@@ -2,7 +2,7 @@
     <div class="max-w-screen-xl mx-auto p-6 ">
         <div class="grid grid-cols-1 md:grid-cols-3">
             <div class="col-span-1 bg-gray-100 p-4 ">
-                <div class="bg-white inline-block px-2 rounded" @click="goBack"> < 返回列表 </div>
+                <div class="bg-white inline-block px-2 rounded" @click="goBack"> &lt; 返回列表 </div>
                     <div class="bg-white rounded px-2 mt-4 h-[200px] overflow-hidden md:h-auto overflow-y-auto">
                         <div class=" flex justify-center">
                             <img class="w-[150px] m-2" :src="product.imageUrl" alt="">
@@ -126,7 +126,7 @@ const route = useRoute();
 const router = useRouter();
 // const itemId = ref({})
 import * as yup from 'yup';
-const product=ref({});
+const product:any=ref({});
 const homeSotre = useHomeStore();
 const { itemId } = storeToRefs(homeSotre)
 

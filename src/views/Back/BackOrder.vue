@@ -71,7 +71,7 @@ function getAllOrders(page=1){
             orders.value = res.orders
             pagination.value = res.pagination
             console.log(pagination.value)
-            orderUserData.value = orders.value.map((order, index) => ({ ...order.user, index })) // 添加索引
+            orderUserData.value = orders.value.map((order:any, index:any) => ({ ...order.user, index })) // 添加索引
         }
     })
 }

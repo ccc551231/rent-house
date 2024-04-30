@@ -113,7 +113,7 @@ function logOut() {
     console.log(res)
   })
 }
-const loginForm = ref(null);
+const loginForm:any = ref(null);
 function reset(){
 if(loginForm.value){
   loginForm.value.resetForm();
