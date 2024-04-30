@@ -1,0 +1,1 @@
+.swiper-button-prev:after,.swiper-button-next:after{display:none}.favoriteClass{background-color:red}@keyframes gradientAnimation{0%{background-position:0% 50%}50%{background-position:100% 50%}to{background-position:0% 50%}}.animate-gradient{animation:gradientAnimation 4s infinite;background-size:200% 200%}
