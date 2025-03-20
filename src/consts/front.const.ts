@@ -33,14 +33,14 @@ export enum TAGEQUIMENT {
     FOUR = '冰箱,冷氣機,電視,洗衣機,洗碗機,桌椅,床,陽台',
 }
 export enum TAGIMG {
-    ONE = '/src/assets/apartment.svg',
-    SECAND = '/src/assets/building.svg',
-    THREE = '/src/assets/house.svg',
-    FOUR = '/src/assets/villa.svg',
+    ONE = '/rent-house/src/assets/apartment.svg',
+    SECAND = '/rent-house/src/assets/building.svg',
+    THREE = '/rent-house/src/assets/house.svg',
+    FOUR = '/rent-house/src/assets/villa.svg',
 }
 export enum NOTTAGIMG {
-    ONE = '/src/assets/apartment-b.svg',
-    SECAND = '/src/assets/building-b.svg',
-    THREE = '/src/assets/house-b.svg',
-    FOUR = '/src/assets/villa-b.svg',
+    ONE = '/rent-house/src/assets/apartment-b.svg',
+    SECAND = '/rent-house/src/assets/building-b.svg',
+    THREE = '/rent-house/src/assets/house-b.svg',
+    FOUR = '/rent-house/src/assets/villa-b.svg',
 }

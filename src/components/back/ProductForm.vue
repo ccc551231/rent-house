@@ -287,8 +287,10 @@ function uploadMainImg(isMain: boolean, e: any, key?: number) {
             initValues.value.imageUrl = res.imageUrl
             console.log(initValues.value.imageUrl)
         } else {
-            initValues.value.imagesUrl[key] = res.imageUrl;
-            // initValues.value.imagesUrl[initValues.value.imagesUrl.length - 1] = res.imageUrl
+            if (key !== undefined) {
+                initValues.value.imagesUrl[key] = res.imageUrl;
+                } 
+                // initValues.value.imagesUrl[initValues.value.imagesUrl.length - 1] = res.imageUrl
             console.log(initValues.value.imagesUrl)
         }
     })

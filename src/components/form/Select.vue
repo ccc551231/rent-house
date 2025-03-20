@@ -111,7 +111,8 @@ const props = defineProps({
     size:{
         type: String as PropType<"s" | "m" | "l" | "custom" | undefined>,
         default: "s"
-    }
+    },
+    value:{}
 
 })
 const optionLabel = computed(() => {

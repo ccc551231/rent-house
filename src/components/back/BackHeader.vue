@@ -3,7 +3,7 @@
     <nav class="bg-primary-800">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <router-link
-        :to="'/back/product'"
+        :to="'/home'"
         class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="@/assets/logo.svg" class="h-6" alt="Flowbite Logo" />
         </router-link>

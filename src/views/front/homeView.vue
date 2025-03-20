@@ -262,17 +262,17 @@
                 class=" m-2 p-4 rounded-md cursor-pointer hover:bg-primary-500 group"
                 :to="`category/${item}`"
                 >
-                    <div class="text-2xl">{{ CATEGORY[item] }}</div>
+                    <div class="text-2xl">{{ CATEGORY[item as keyof typeof CATEGORY] }}</div>
                     <div class="grid grid-cols-1 items-center sm:grid-cols-3">
                         <div class="flex justify-center">
                             <img 
-                                :src="index===0 ? TAGIMG[item]: NOTTAGIMG[item]"
+                                :src="index===0 ? TAGIMG[item as keyof typeof TAGIMG]: NOTTAGIMG[item as keyof typeof NOTTAGIMG]"
                                 class="col-span-1 p-2 h-[120px]"
                             >
                             </div>
                         <div class="col-span-2">
                             <template v-for="obj in [TAGTIME, TAGRULE, TAGEQUIMENT]" :key="obj">
-                                <i class="bi bi-info-circle mr-2"></i>{{ obj[item] }}<br> 
+                                <i class="bi bi-info-circle mr-2"></i>{{ (obj as Record<string, string>)[item] }}<br> 
                             </template>
                         </div>
                         

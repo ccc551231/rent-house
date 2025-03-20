@@ -124,21 +124,21 @@ const onSwiper = (swiper: any) => {
 const onSlideChange = () => {
 };
 const allProduct = ref([])
-const selectedCategory = ref(null);
+const selectedCategory = ref();
 function getCategoryBackground(item:string) {
   switch (item) {
     case '公寓':
-    return 'url(/src/assets/class-apartment.svg)';
+    return 'url(/rent-house/src/assets/class-apartment.svg)';
     case '電梯大樓':
-    return 'url(/src/assets/class-building.svg)';
+    return 'url(/rent-house/src/assets/class-building.svg)';
     case '透天':
-    return 'url(/src/assets/class-house.svg)';
+    return 'url(/rent-house/src/assets/class-house.svg)';
     case '別墅':
-    return 'url(/src/assets/class-villa.svg)';
+    return 'url(/rent-house/src/assets/class-villa.svg)';
     case '全部':
-      return 'url(/src/assets/class-all.svg)';
+      return 'url(/rent-house/src/assets/class-all.svg)';
     default:
-      return 'url(/src/assets/category_pic.svg)';
+      return 'url(/rent-house/src/assets/category_pic.svg)';
   }
 }
 function product(){
@@ -147,7 +147,7 @@ function product(){
             allProduct.value = res.products
             if(category){
                 Products.value=res.products.filter((item:any)=>{
-                    return item.unit == CATEGORY[category]
+                    return item.unit == CATEGORY[category as keyof typeof CATEGORY]
                 })
                 console.log(Products.value)
             }
@@ -213,7 +213,7 @@ function getRandomColor() {
       return colors.value[Math.floor(Math.random() * colors.value.length)];
     }
 onMounted(()=>{
-    selectedCategory.value = CATEGORY[category]
+    selectedCategory.value = CATEGORY[category as keyof typeof CATEGORY]
     console.log( selectedCategory.value)
     product()
     // 使用 watchEffect 監看 selectedCategory 的變化

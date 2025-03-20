@@ -1,6 +1,6 @@
 <template>
 <div v-if="isShow" class="fixed flex top-0 right-0 left-0 bottom-0 justify-center items-center z-10">
-    <div class="absolute  h-full w-full flex bg-black opacity-70  top-0 left-0"></div>
+    <div class="absolute  h-full w-full flex bg-black opacity-70  top-0 left-0"  @click.prevent="hideModel"></div>
     <div 
     class="z-888 relative flex justify-center items-center">
         <button 
@@ -9,7 +9,7 @@
         @click.prevent="preImg"
         class="text-white w-[20px] "></ArrowLeftIcon>
         </button>
-        <img class="z-999 w-full h-full" :src="getImgs[nowNumber]" alt="">
+        <img class="z-999 w-3/5" :src="getImgs[nowNumber]" alt="">
         <button 
         @click.prevent="nextImg"
         class="rounded-full p-2 bg-gray-600 cursor-pointer ml-4">
@@ -28,6 +28,7 @@
 import { onMounted,ref,defineExpose } from 'vue';
 import { array } from 'yup';
 import { ArrowLeftIcon, ArrowRightIcon} from '@heroicons/vue/20/solid';
+
 const allNumber = ref([0,1,2,3,4])
 const nowNumber = ref(0)
 const isShow = ref(false);
